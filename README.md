@@ -1,8 +1,10 @@
 # Multiple View Geometry
 
-This repository holds the transcript of the introductary
+This repository holds the transcript of the introductory
 [course provided by Daniel Cremers][youtube]
 on multiple view geometry.
+
+[youtube]: https://www.youtube.com/playlist?list=PLTBdjV_4f-EJn6udZ34tht9EVIW7lbeo4
 
 It also served me as a reminder on how to write all 'maths things' in LaTeX.
 I initially wanted to take only quick notes using dropbox paper.
