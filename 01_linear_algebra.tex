@@ -1,0 +1,388 @@
+\section[Linear Algebra]{Mathematical Background: Linear Algebra}
+\label{sec:linear_algebra}
+
+This is intended as being a short crash course of linear algebra.
+
+\subsection{Vector Spaces}
+\label{sub:vector_spaces}
+
+A set $V$ is called a \textbf{linear space}
+or a \textbf{vector space over the field} $\R$
+if it is closed under vector summation and scalar multiplication.
+\begin{align*}
+	+ &: V \times V \rightarrow V \\
+	\cdot &: \R \times V \rightarrow V 
+\end{align*}
+
+\noindent
+With respect to addition ($+$) it forms a commutative group
+(existence of neutral element $0$, inverse element $-v$).
+Scalar multiplication respects the structure of $\R$ 
+($\alpha(\beta v) = (\alpha \beta )v$).
+Multiplication and addition respect the \textbf{distributive law}:
+\begin{align*}
+	( \alpha + \beta )v &= \alpha v + \beta v \\
+	\alpha (u + v) & = \alpha u + \alpha v
+\end{align*}
+
+\noindent
+A subset $W \subset V$ of a vector space $V$
+is called a \textbf{subspace} if $0 \in W$ and
+$W$ is closed under $+$ and $\cdot$ (for all $\alpha \in \R$).\\
+
+\noindent
+A \textbf{spanned subspace} of a set of vectors
+$S = \{v_1, \hdots, v_k\} \subset V$ is the subspace
+formed by all linear combinations of these vectors.
+The set $S$ is called \textbf{linearly independant} if:
+\[
+	\sum_{i=1}^k \alpha_i v_i = 0 \implies \forall i, \alpha_i = 0
+\]
+\noindent
+A set $B = \{v_1, \hdots, v_n\}$ is called
+a \textbf{basis} of $V$ if it is linearly independent and if it
+spans the vector space $V$.
+A basis is a maximal set of linearly independent vectors.
+
+
+\subsubsection{Properties of a Basis}
+\label{ssub:properties_of_a_basis}
+
+Let $B$ and $B'$ be two bases of a linear space $V$.
+
+\begin{enumerate}
+	\item $B$ and $B'$ contain the same number of vectors.
+	This number $n$ is called the \textbf{dimension of the space} $V$.
+
+\item Any vector $v \in V$ can be \textbf{uniquely expressed}
+	as a linear combination of the basis vectors in
+	$B = \{b_1, \hdots, b_n\}$:
+	\[
+		v = \sum_{i=1}^n \alpha_i b_i
+	\]
+	\item In particular, all vectors of $B'$ can be expressed as
+	linear combinations of vectors of $B$:
+	\[
+		b'_j = \sum_{i=1}^n \alpha_{ij} b_i
+	\]
+	The coefficients $\alpha_{ij}$ for this \textbf{basis transform}
+	can be combined in a matrix $A$:
+	\[
+		B' = BA \Leftrightarrow B = B'A^{-1}
+	\]
+\end{enumerate}
+
+
+\subsubsection{Inner Product}
+\label{ssub:inner_product}
+
+On a vector space, one can define an \textbf{inner product}
+(or \textbf{dot product}):
+\[\inner{\cdot}{\cdot} : V \times V \rightarrow \R\]
+wich is defined by three properties:
+\begin{enumerate}
+	\item \textbf{linear}:
+		$\inner{u}{\alpha v + \beta w} = \alpha \inner{u}{v} + \beta \inner{u}{w}$
+
+	\item \textbf{symmetric}:
+		$\inner{u}{v} = \inner{v}{u}$
+
+	\item \textbf{positive definite}:\\
+		$\inner{v}{v} \geq 0$ and $\inner{v}{v} = 0 \Leftrightarrow v = 0$
+	
+\end{enumerate}
+
+\noindent
+The scalar product induces a \textbf{norm}:
+\[|\cdot| : V \rightarrow \R, \quad |v| = \sqrt{\inner{v}{v}}\]
+
+\noindent
+and a \textbf{metric}:
+\[d : V \times V \rightarrow \R, \quad d(v,w) = |v - w| = \sqrt{\inner{v-w}{v-w}}\]
+
+\noindent
+A vector space with an inner product is then also
+a \textbf{metric space}. It is called a \textbf{Hilbert space}.
+
+
+\subsubsection{Canonical and Induced Inner Product}
+\label{ssub:canonical_and_induced_inner_product}
+
+On $V = \R^n$, one can define the canonical inner product for
+the canonical basis $B = I_n$ as:
+
+\[\inner{x}{y} = x^{\top} y = \sum_{i=1}^n x_i y_i\]
+
+\noindent
+which induces the standard $L_2$-norm or Euclidean norm:
+
+\[|x|_2 = \sqrt{x^{\top}x} = \sqrt{x_1^2 + \hdots + x_n^2}\]
+
+\noindent
+With a basis transform $A$ to the new basis $B'$ given by
+$B' = IA$ the canonical inner product in the new coordinates
+$x'$, $y'$ is given by:
+
+\[\inner{x}{y} = x^{\top} y = {(Ax')}^{\top} (Ay')
+= x'^{\top} A^{\top} Ay' \equiv \inner{x'}{y'}_{A^{\top} A}\]
+
+\noindent
+The latter product is called the \textbf{induced inner product}
+from the matrix $A$.\\
+
+\noindent
+Two vectors $v$ and $w$ are \textbf{orthogonal} iff\\
+$\inner{v}{w} = 0$.
+
+
+\subsubsection{Kronecker Product and Stack of a Matrix}
+\label{ssub:kronecker_product_and_stack_of_a_matrix}
+
+Given two matrices $A \in \R^{m\times n}$ and $B \in \R^{k \times l}$,
+one can define their \textbf{Kronecker product} by:
+
+\[A \otimes B \equiv
+	\begin{pmatrix}
+		a_{11}B & \cdots & a_{1n}B \\
+		\vdots & \ddots & \vdots \\
+		a_{m1}B & \cdots & a_{mn}B \\
+	\end{pmatrix}
+\]
+\noindent
+In matlab: $C = \mathrm{kron}(A,B)$.
+
+\noindent
+Given a matrix $A \in \R^{m \times n}$, its \textbf{stack} $A^s$
+is obtained by stacking its $n$ column vectors $a_1, \ldots, a_n \in \R^m$:
+
+\[A^s \equiv
+	\begin{pmatrix}
+		a_1 \\
+		\vdots \\
+		a_n \\
+	\end{pmatrix}
+\in \R^{mn}\]
+
+\noindent
+These notations allow to rewrite algebraic expressions, for example:
+
+\[u^{\top} A v = {( v \otimes u )}^{\top} A^s\]
+
+\subsection{Linear Transformations and Matrices}
+\label{sub:linear_transformations_and_matrices}
+
+A \textbf{linear transformation} $L$ between tow linear spaces
+$V$ and $W$ is a map $L : V \rightarrow W$ such that:
+\begin{align*}
+	\forall (x,y) \in V^2 ,\quad L(x+y) &= L(x) + L(y) \\
+	\forall x \in V, \forall \alpha \in \R,\quad L(\alpha x) &= \alpha L(x)
+\end{align*}
+
+\noindent
+Due to the linearity, the action of $L$ on the space $V$
+is uniquely defined by its action on the basis vectors of $V$.
+In the canonical basis ${e_1, \ldots, e_n}$ we have:
+
+\[\forall x \in V, \quad L(x) = Ax\]
+\noindent
+where
+\[A = (L(e_1), \ldots, L(e_n)) \in \R^{m \times n}\]
+
+\noindent
+The set of all $m \times n$ matrices is denoted by $\M(m,n)$.
+In case that $m = n$, the set $\M(m,n) \equiv \M(n)$
+forms a \textbf{ring} over the field $\R$, i.e.\ it is closed
+under matrix multiplication and summation.
+
+
+\subsubsection{The Linear Groups $GL(n)$ and $SL(n)$}
+\label{ssub:the_linear_groups_gl_n_and_sl_n_}
+
+A \textbf{group} is a set $G$ with an operation
+$\circ : G \times G \rightarrow G$ such that:
+\begin{enumerate}
+	\item It is closed:
+		$\forall (g_1, g_2) \in G^2, \quad g_1 \circ g_2 \in G$
+	\item It is associative:
+		$\forall (g_1, g_2, g_3) \in G^3, \quad
+		(g_1 \circ g2) \circ g_3 = g_1 \circ (g_2 \circ g_3)$
+	\item There is a neutral element:
+		$\exists e \in G: \forall g \in G, \quad
+		e \circ g = g \circ e = g$
+	\item Each element has an inverse:
+		$\forall g \in G, \exists \inv{g} \in G : \quad
+		g \circ \inv{g} = \inv{g} \circ g = e$
+\end{enumerate}
+
+\noindent
+All invertible (non-singular) real $n \times n$ matrices
+form a group with respect to matrix multiplication.
+This group is called the \textbf{general linear group} $GL(n)$.
+It consists of all $A \in \M(n)$ for which $\det(A) \ne 0$.\\
+
+\noindent
+All matrices $A \in GL(n)$ for which $\det(A) = 1$ form a group
+called the \textbf{special linear group} $SL(n)$.
+
+
+\subsubsection{Matrix Representation of Groups}
+\label{ssub:matrix_representation_of_groups}
+
+A group $G$ has a \textbf{matrix representation} or can be realized as
+a matrix group if there exists an injective transformation:
+
+\[R : G \rightarrow GL(n)\]
+
+\noindent
+which \textbf{preserves the group structure} of $G$,
+that is inverse and composition are preserved by the map:
+
+\begin{align*}
+	R(e) &= I_{n \times n} \\
+	\forall (g,h) \in G^2, \quad R(g\circ h) &= R(g)R(h)
+\end{align*}
+
+\noindent
+Such a map $R$ is called a \textbf{group homomorphism}.
+The idea is to study properties of the group by the matrices properties.
+
+
+\subsubsection{The Affine Group $A(n)$}
+\label{ssub:the_affine_group_a_n_}
+
+An affine transformation $L : \R^n \rightarrow \R^n$
+is defined by a matrix $A \in GL(n)$ and a vector $b \in \R^n$ such that:
+\[L(x) = Ax + b\]
+
+\noindent
+The set of all such affine transformations is called the
+\textbf{affine group of dimension $n$}, denoted by $A(n)$.
+L defined above is not a linear map unless $b=0$.
+By introducing \textbf{homogeneous coordinates} to represent $x \in \R^n$ by
+$\inmatrix{x \\ 1} \in \R^{n+1}$,
+$L$ becomes a linear mapping from:
+
+\[L: \R^{n+1} \rightarrow \R^{n+1}; \quad
+	\begin{pmatrix}
+		x \\
+		1 \\
+	\end{pmatrix}
+	\mapsto
+	\begin{pmatrix}
+		A & b \\
+		0 & 1 \\
+	\end{pmatrix}
+	\begin{pmatrix}
+		x \\
+		1 \\
+	\end{pmatrix}\]
+
+\noindent
+A matrix $\inmatrix{A & b \\ 0 & 1}$ with $A \in GL(n)$ and $b \in R^n$
+is called an \textbf{affine matrix}. It is an element of $GL(n+1)$.
+The affine matrices form a subgroup of $GL(n+1)$.
+
+
+\subsubsection{The Orthogonal Group $O(n)$}
+\label{ssub:the_orthogonal_group_o_n_}
+
+A matrix $A \in \M(n)$ is called \textbf{orthogonal} if it preserves
+the inner product:
+\[\forall (x,y) \in {(\R^n)}^2 \quad \inner{Ax}{Ay} = \inner{x}{y}\]
+
+\noindent
+The set of all orthogonal matrices forms the \textbf{orthogonal group}
+$O(n)$, which is a subgroup of $GL(n)$.
+For an orthogonal matrix $R$ we have:
+\[\forall (x,y) \in {(\R^n)}^2, \quad
+\inner{Rx}{Ry} = \tr{x}\tr{R}Ry = \tr{x}y\]
+
+\noindent
+Therefore, we must have $\tr{R}R = R\tr{R} = I$, i.e.
+\[O(n) = \{ R \in GL(n) \ | \ \tr{R}R = I \}\]
+
+\noindent
+We can show that $\det(R) \in \{ \pm 1\}$.
+The subgroup of $O(n)$ with $\det(R) = +1$ is called
+the \textbf{special orthogonal group} $SO(n)$.
+$SO(n) = O(n) \cap SL(n)$.
+In particular, $SO(3)$ is the group of all 3-dimensional rotation matrices.
+
+
+\subsubsection{The Euclidean Group $E(n)$}
+\label{ssub:the_euclidean_group_e_n_}
+
+A Euclidean transformation $L$ from $\R^n$ to $\R^n$ is defined by
+an orthogonal matrix $R \in O(n)$ and a vector $T \in R^n$:
+\[L : \R^n \rightarrow \R^n; \quad x \mapsto Rx + T\]
+
+\noindent
+The set of all such transformations is called the
+\textbf{Euclidean group} $E(n)$. It is a subgroup of the affine group $A(n)$.
+\[E(n) = \left\{
+	\begin{pmatrix}
+		R & T \\
+		0 & 1 \\
+	\end{pmatrix}
+\ \middle| \ R \in O(n), \ T \in \R^n \right\}\]
+
+
+\noindent
+If $R \in SO(n)$ then we have the \textbf{special euclidean group} $SE(n)$.
+In particular, $SE(3)$ represent the \textbf{rigid-body motions} in $\R^3$.\\
+
+\noindent
+In summary:
+
+\[\boxed{SO(n) \subset O(n) \subset GL(n)}\]
+\[\boxed{SE(n) \subset E(n) \subset A(n) \subset GL(n+1)}\]
+
+
+\subsection{Properties of Matrices}
+\label{sub:properties_of_matrices}
+
+
+\subsubsection{Range, Span, Null Space and Kernel}
+\label{ssub:range_span_null_space_and_kernel}
+
+Let $A \in \Rmn$ be a matrix defining a linear map from $\Rn$ to $\Rm$.
+The \textbf{range} or \textbf{span} of $A$ is defined as the subspace
+of $\Rm$ which can be ``reached'' by $A$:
+\[\text{range}(A) = \{ y \in \Rm \ |\  \exists x \in \Rn : Ax = y \}\]
+
+\noindent
+The range of a matrix $A$ is given by the span of its column vectors.
+The \textbf{null space} or \textbf{kernel} of a matrix $A$ is given by
+the subset of vectors $x \in \Rn$ which are mapped to zero:
+\[\text{null}(A) \equiv \ker(A) = \{ x \in \Rn \ | \ Ax = 0 \}\]
+
+\noindent
+The null space of a matrix $A$ is given by the vectors
+orthogonal to its row vectors. In matlab: $Z = \text{null}(A)$.
+The concepts of range and null space are useful when studying the
+\textbf{solution of linear equations}. The system $Ax = b$ will have
+a solution $x \in \Rn$ if and only if $b \in \text{range}(A)$.
+Moreover, this solution will be unique only if $\ker(A) = \{0\}$.\\
+
+\noindent
+The \textbf{rank} of a matrix is the dimension of its range:
+\[\text{rank}(A) = \dim(\text{range}(A))\]
+
+\noindent
+The rank of a matrix $A \in \Rmn$ has the following properties:
+\begin{enumerate}
+	\item $\text{rank}(A) = n - \dim(\ker(A))$
+	\item $0 \le \text{rank}(A) \le \min\{m,n\}$.
+	\item $\text{rank}(A)$ is equal to the maximum number
+		of linearly independent row (or column) vectors of $A$.
+	\item $\text{rank}(A)$ is the highest order of a nonzero minor of $A$,
+		where a \textbf{minor of order k} is the determinant
+		of a $k \times k$ submatrix of $A$.
+	\item \textbf{Sylvester's inequality}: Let $B \in \R^{n \times k}$.
+		then $AB \in \R^{m \times k}$ and
+		$\text{rank}(A) + \text{rank}(B) - n \le
+			\text{rank}(AB) \le \min \{ \text{rank}(A), \text{rank}(B)\}$.
+	\item For any nonsingular matrices $C \in \R^{m \times m}$
+		and $D \in \R^{n \times n}$, we have:
+		$\text{rank}(A) = \text{rank}(CAD)$.
+\end{enumerate}
