@@ -1,0 +1,25 @@
+\ProvidesPackage{mathstyle}
+
+\usepackage{lipsum}
+\usepackage{multicol}
+\usepackage[margin={2cm,2cm}]{geometry}
+\setlength{\columnsep}{1cm}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{mathtools}
+
+\newcommand*\conj[1]{\overline{#1}}
+\newcommand*\mean[1]{\overline{#1}}
+\newcommand{\C}{\mathbb{C}} % Complex set
+\newcommand{\R}{\mathbb{R}} % Real set
+\newcommand{\RR}[2]{\mathbb{R}^{#1 \times{} #2}} % Real set
+\newcommand{\Rn}{\mathbb{R}^n}
+\newcommand{\Rm}{\mathbb{R}^m}
+\newcommand{\Rmn}{\mathbb{R}^{m \times{} n}}
+\newcommand{\M}{\mathcal{M}} % Matrix set
+\newcommand{\inv}[1]{#1^{-1}} % Inverse
+\newcommand{\pinv}[1]{#1^{\dagger}} % Pseudo Inverse
+\newcommand{\tr}[1]{#1^{\top}} % Transpose
+\newcommand{\inmatrix}[1]{\left(\begin{smallmatrix} #1 \end{smallmatrix} \right)} % Inline small matrix
+% requires mathtools
+\DeclarePairedDelimiterX{\inner}[2]{\langle}{\rangle}{#1, #2} % Inner product

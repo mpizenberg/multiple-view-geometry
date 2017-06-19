@@ -1,4 +1,4 @@
-\section[Linear Algebra]{Mathematical Background: Linear Algebra}
+\section{Mathematical Background: Linear Algebra}
 \label{sec:linear_algebra}
 
 This is intended as being a short crash course of linear algebra.
@@ -11,7 +11,7 @@ or a \textbf{vector space over the field} $\R$
 if it is closed under vector summation and scalar multiplication.
 \begin{align*}
 	+ &: V \times V \rightarrow V \\
-	\cdot &: \R \times V \rightarrow V 
+	\cdot &: \R \times V \rightarrow V
 \end{align*}
 
 \noindent
@@ -34,7 +34,7 @@ $W$ is closed under $+$ and $\cdot$ (for all $\alpha \in \R$).\\
 A \textbf{spanned subspace} of a set of vectors
 $S = \{v_1, \hdots, v_k\} \subset V$ is the subspace
 formed by all linear combinations of these vectors.
-The set $S$ is called \textbf{linearly independant} if:
+The set $S$ is called \textbf{linearly independent} if:
 \[
 	\sum_{i=1}^k \alpha_i v_i = 0 \implies \forall i, \alpha_i = 0
 \]
@@ -386,3 +386,266 @@ The rank of a matrix $A \in \Rmn$ has the following properties:
 		and $D \in \R^{n \times n}$, we have:
 		$\text{rank}(A) = \text{rank}(CAD)$.
 \end{enumerate}
+
+
+\subsubsection{Eigenvalues and Eigenvectors}
+\label{ssub:eigenvalues_and_eigenvectors}
+
+Let $A \in \C^{n \times n}$ be a complex matrix.
+A non-zero vector $v \in \C^n$ is called a \textbf{(right) eigenvector of $A$} if:
+	\[\exists \lambda \in \C, \quad Av = \lambda v\]
+
+\noindent
+$\lambda$ is called an \textbf{eigenvalue of $A$}.
+Similarly $v$ is called a \textbf{left eigenvector} of $A$ if
+$\tr{v}A = \lambda \tr{v}$ for some $\lambda \in \C$.
+
+\noindent
+The \textbf{spectrum $\sigma(A)$ of a matrix $A$} is the set of all its eigenvalues.
+In Matlab: $[V,D] = \text{eig} (A)$;
+
+\noindent
+where $D$ is a diagonal matrix containing the eigenvalues and
+$V$ is a matrix whose columns are the corresponding eigenvectors,
+such that $AV = VD$.
+
+
+\subsubsection{Properties of Eigenvalues and Eigenvectors}
+\label{ssub:properties_of_eigenvalues_and_eigenvectors}
+
+Let $A \in \R^{n \times n}$ be a square matrix, then:
+\begin{enumerate}
+	\item If $Av = \lambda v$ for some $\lambda \in \R$, then there also exists a
+		left-eigenvector $\eta \in \Rn \ : \ \tr{\eta}A = \lambda \tr{\eta}$.
+		Hence $\sigma(A) = \sigma(\tr(A))$
+	\item The eigenvectors of a matrix associated with different
+		eigenvalues are linearly independent.
+	\item All eigenvalues $\sigma(A)$ are the roots of the characteristic
+		polynomial equation $\det(A - \lambda I) = 0$.
+		Therefore $\det(A)$ is equal to the product of all eigenvalues
+		(some of which may appear multiple times).
+	\item If $B = PA\inv{P}$ for some nonsingular matrix $P$,
+		then $\sigma(B) = \sigma(A)$
+	\item If $\lambda \in \C$ is an eigenvalue, then its conjugate
+		$\conj{\lambda}$ is also an eigenvalue.
+		Thus $\sigma(A) = \conj{\sigma(A)}$ for real matrices $A$.
+\end{enumerate}
+
+
+\subsubsection{Symmetric Matrices}
+\label{ssub:symmetric_matrices}
+
+A matrix $S \in \R^{n \times n}$ is called \textbf{symmetric} if $\tr{S} = S$.
+A symmetric matrix S is called \textbf{positive semi-definite}
+(denoted by $S \ge 0$) if:
+	\[\forall x \ne 0, \quad \tr{x}Sx \ge 0\]
+
+\noindent
+$S$ is called \textbf{positive definite} (denoted by $S>0$) if this is $>0$.
+Let $S \in \R^{n \times n}$ be a real symmetric matrix. Then:
+\begin{enumerate}
+	\item All eigenvalues of $S$ are real, i.e. $\sigma(S) \subset \R$.
+	\item Eigenvectors $v_i$ and $v_j$ of $S$ corresponding to distinct
+		eigenvalues $\lambda_i \ne \lambda_j$ are orthogonal.
+	\item There always exist $n$ orthonormal eigenvectors of $S$
+		which form a basis of $\Rn$.
+		Let $V = (v_1, \ldots, v_n) \in O(n)$ be the orthogonal matrix
+		of these eigenvectors, and
+		$\Lambda = \text{diag}\{\lambda_1, \ldots, \lambda_n\}$ the diagonal
+		matrix of eigenvalues. Then we have $S = V \Lambda \tr{V}$.
+	\item $S$ is positive (semi-) definite if all eigenvalues are
+		positive (nonnegative).
+	\item Let $S$ be positive semi-definite and $\lambda_1, \lambda_n$ the largest
+		and smallest eigenvalues. Then $\lambda_1 = \max_{|x|=1} \inner{x}{Sx}$
+		and $\lambda_n = \min_{|x|=1} \inner{x}{Sx}$.
+	
+\end{enumerate}
+
+
+\subsubsection{Norms of Matrices}
+\label{ssub:norms_of_matrices}
+
+There are many ways to define norms on the space of matrices $A \in \Rmn$.
+They can be defined based on norms on the domain or codomain spaces
+on which $A$ operates. In particular, the
+\textbf{induced 2-norm of a matrix $A$} is defined as:
+	\[\|A\|_2 \equiv \underset{|x|_2=1}{\max} |Ax|_2
+	= \underset{|x|_2=1}{\max} \sqrt{\inner{x}{\tr{A}Ax}}\]
+
+\noindent
+Alternatively, one can define the \textbf{Frobenius norm of $A$} as:
+	\[\|A\|_f \equiv \sqrt{\sum_{i,j}a^2_{ij}}
+	= \sqrt{\text{trace}(\tr{A}A)}\]
+
+\noindent
+Note that these norms are in general not the same.
+Since the matrix $\tr{A}A$ is symmetric and pos.\ semi-definite,
+we can diagonalize it as:
+\[\tr{A}A = V \text{diag}\{\sigma^2_1, \ldots, \sigma^2_n\}\tr{V}\]
+
+\noindent
+with $\sigma^2_1 \ge \sigma^2_i \ge 0$. This leads to:
+	\[\|A\|_2 = \sigma_1\]
+	\[\|A\|_f = \sqrt{\text{trace}(\tr{A}A)} = \sqrt{\sigma^2_1 + \cdots + \sigma^2_n}\]
+
+\subsubsection{Skew-symmetric Matrices}
+\label{ssub:skew_symmetric_matrices}
+
+A matrix $A \in \R^{n \times n}$ is called
+\textbf{skew-symmetric or anti-symmetric} if $\tr{A} = -A$.
+If $A$ is a real skew-symmetric matrix, then:
+\begin{enumerate}
+	\item All eigenvalues of $A$ are either zero or purely imaginary,
+		i.e.\ of the form $i\omega$ with $i ^2 = -1,\ \omega \in \R$.
+	\item There exists an orthogonal matrix $V$ such that:
+		\[A = V \Lambda \tr{V}\]
+		where $\Lambda$ is a block-diagonal matrix.
+		$\Lambda = \text{diag}\{A_1, \ldots, A_m, 0, \ldots, 0\}$,
+		with real skew-symmetric matrices $A_i$ of the form:
+		\[A_i = \begin{pmatrix}
+				0 & a_i \\
+				-a_i & 0
+		\end{pmatrix}
+		\in \R^{2 \times 2}, \quad i = 1, \ldots, m\]
+		In particular, the rank of any skew-symmetric matrix is even.
+\end{enumerate}
+
+
+\subsubsection{Hat Operator}
+\label{ssub:hat_operator}
+
+In Computer Vision, a common skew-symmetric matrix is given by the
+\textbf{hat operator} of a vector $u \in \R^{3}$
+	\[\widehat{u} = \begin{pmatrix}
+		0 & -u_3 & u_2 \\
+		u_3 & 0 & -u_1 \\
+		-u_2 & u_1 & 0
+	\end{pmatrix} \in \R^{3 \times 3}\]
+
+\noindent
+This is a linear operator from the space of vectors $\R^3$
+to the space of skew-symmetric matrices in $\RR{3}{3}$.
+In particular, the matrix $\widehat{u}$ has the property that:
+	\[\widehat{u}v = u \times v\]
+
+\noindent
+where $\times$ denotes the standard vector cross product in $\R^3$.
+For $u \ne 0$, we have $\text{rank}(\widehat{u}) = 2$ and the null space
+of $\widehat{u}$ is spanned by u, because
+$\widehat{u}u = \tr{u}\widehat{u} = 0$.
+
+
+\subsection{The Singular Value Decomposition}
+\label{sub:the_singular_value_decomposition}
+
+Many of matrix properties can be captured by the so-called
+\textbf{singular value decomposition (SVD)}.
+SVD can be seen as a generalization of eigenvalues and
+eigenvectors to non-square matrices.
+The computation of SVD is numerically well-conditioned.
+It is very useful for solving linear-algebraic problems such as:
+\begin{itemize}
+	\setlength\itemsep{-0.2em}
+	\item matrix inversion
+	\item rank computation
+	\item linear least-squares estimation
+	\item projections
+	\item fixed-rank approximations
+\end{itemize}
+
+
+\subsubsection{Algebraic Derivation of SVD}
+\label{ssub:algebraic_derivation_of_svd}
+
+Let $A \in \Rmn$ with $m \ge n$ be a matrix of rank
+$\text{rank}(A) = p$. Then there exist:
+\begin{itemize}
+	\item $U \in \RR{m}{p}$ whose columns are orthonormal,
+	\item $V \in \RR{n}{p}$ whose columns are orthonormal, and
+	\item $\Sigma \in \RR{p}{p}, \quad
+		\Sigma = \text{diag}\{ \sigma_1, \ldots, \sigma_p \}$, with
+		$\sigma_1 \ge \ldots \ge \sigma_p$
+\end{itemize}
+\noindent
+such that:
+	\[A = U \Sigma \tr{V}\]
+
+\noindent
+Note that this \textbf{generalizes the eigenvalue decomposition}.
+While the latter decomposes a symmetric square matrix $A$ with
+an orthogonal transformation $V$ as:
+\[A = V \Lambda \tr{V}, \quad V \in O(n), \quad
+\Lambda = \text{diag}\{\lambda_1, \ldots, \lambda_n\}\]
+
+\noindent
+SVD allows to decompose an arbitrary (non-square) matrix $A$
+of rank $p$ with two transformations $U$ and $V$ with orthonormal
+columns as shown above.\\
+
+\noindent
+The proof is quite interresting and relies on properties of $\tr{A}A$.
+It is available in the second video, at minute 42.
+
+
+\subsubsection{A Geometric Interpretation of SVD}
+\label{ssub:a_geometric_interpretation_of_svd}
+
+For $A \in \RR{n}{n}$, the singular value decomposition
+$A = U \Sigma \tr{V}$ is such that the columns $U = (u_1, \ldots, u_n)$
+and $V = (v_1, \ldots, v_n)$ form orthonormal bases of $\Rn$.
+If a point $x \in \Rn$ is mapped to a point $y \in \Rn$
+by the transformation $A$, then the coordinates of $y$ in basis $U$
+are related to the coordinates of $x$ in basis $V$
+by the diagonal matrix $\Sigma$. Each coordinate is merely scaled by
+the corresponding singular value:
+\[y = Ax = U\Sigma\tr{V}x \quad \Leftrightarrow \quad \tr{U}y = \Sigma \tr{V}x\]
+
+\noindent
+\textbf{The matrix $A$ maps the unit sphere into an ellipsoid with
+semi-axis $\sigma_i u_i$}. To see this, we call $\alpha \equiv \tr{V}x$
+the coefficients of the point $x$ in the basis $V$ and those of $y$
+in basis $U$ shall be called $\beta \equiv \tr{U}y$.
+All points of the circle fulfill $|x|^2_2 = \sum_i\alpha^2_i = 1$.
+The above statement says that $\beta_i = \sigma_i\alpha_i$.
+Thus for the points on the sphere we have:
+	\[\sum_i\alpha^2_i = \sum_i\frac{\beta^2_i}{\sigma^2_i} = 1\]
+
+\noindent
+which states that the transformed points lie on an ellipsoid
+oriented along the axes of the basis $U$.
+
+
+\subsubsection{The Generalized (Moore Penrose) Inverse}
+\label{ssub:the_generalized_moore_penrose_inverse}
+
+For certain quadratic matrices, one can define an inverse matrix, if $\det(A) \ne 0$.
+The set of all invertible matrices forms the group $GL(n)$.
+One can also define a \textbf{(generalized) inverse}
+(also called \textbf{pseudo inverse}) for an arbitrary (non-quadratic)
+matrix $A \in \Rmn$. If its SVD is $A = U \Sigma \tr{V}$
+the pseudo inverse is defined as:
+	\[\pinv{A} = V \inv{\Sigma} \tr{U}\]
+
+\noindent
+If we consider the ``non-economical'' SVD decomposition
+(with $U \in \RR{m}{m}$, $\Sigma \in \Rmn$ (completed with 0), and $V \in \RR{n}{n}$),
+then this can also be written as:
+	\[\pinv{A} = V \pinv{\Sigma} \tr{U}, \quad
+		\text{where}\ \pinv{\Sigma} =
+		\begin{pmatrix}
+			\inv{\Sigma_1} & 0 \\
+			0 & 0
+		\end{pmatrix}_{n \times m}\]
+
+\noindent
+where $\Sigma_1$ is the diagonal matrix of non-zero singular values.
+\textbf{In Matlab:} $X = pinv(A)$.
+In particular, the pseudo inverse can be employed in similar fashion
+as the inverse of quadratic invertible matrices:
+	\[A \pinv{A} A = A, \quad \pinv{A} A \pinv{A} = \pinv{A}\]
+
+\noindent
+The linear system $Ax = b$ with $A \in \Rmn$ of rank $r \le \min(m,n)$
+can have multiple or no solutions.
+$x_{\min} = \pinv{A}b$ \textbf{is among all minimizers of $|Ax-b|^2$
+the one with the smalest norm $|x|$.}
