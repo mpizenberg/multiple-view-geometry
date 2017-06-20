@@ -14,7 +14,6 @@ if it is closed under vector summation and scalar multiplication.
 	\cdot &: \R \times V \rightarrow V
 \end{align*}
 
-\noindent
 With respect to addition ($+$) it forms a commutative group
 (existence of neutral element $0$, inverse element $-v$).
 Scalar multiplication respects the structure of $\R$ 
@@ -25,12 +24,10 @@ Multiplication and addition respect the \textbf{distributive law}:
 	\alpha (u + v) & = \alpha u + \alpha v
 \end{align*}
 
-\noindent
 A subset $W \subset V$ of a vector space $V$
 is called a \textbf{subspace} if $0 \in W$ and
 $W$ is closed under $+$ and $\cdot$ (for all $\alpha \in \R$).\\
 
-\noindent
 A \textbf{spanned subspace} of a set of vectors
 $S = \{v_1, \hdots, v_k\} \subset V$ is the subspace
 formed by all linear combinations of these vectors.
@@ -38,7 +35,6 @@ The set $S$ is called \textbf{linearly independent} if:
 \[
 	\sum_{i=1}^k \alpha_i v_i = 0 \implies \forall i, \alpha_i = 0
 \]
-\noindent
 A set $B = \{v_1, \hdots, v_n\}$ is called
 a \textbf{basis} of $V$ if it is linearly independent and if it
 spans the vector space $V$.
@@ -92,15 +88,12 @@ wich is defined by three properties:
 	
 \end{enumerate}
 
-\noindent
 The scalar product induces a \textbf{norm}:
 \[|\cdot| : V \rightarrow \R, \quad |v| = \sqrt{\inner{v}{v}}\]
 
-\noindent
 and a \textbf{metric}:
 \[d : V \times V \rightarrow \R, \quad d(v,w) = |v - w| = \sqrt{\inner{v-w}{v-w}}\]
 
-\noindent
 A vector space with an inner product is then also
 a \textbf{metric space}. It is called a \textbf{Hilbert space}.
 
@@ -113,12 +106,10 @@ the canonical basis $B = I_n$ as:
 
 \[\inner{x}{y} = x^{\top} y = \sum_{i=1}^n x_i y_i\]
 
-\noindent
 which induces the standard $L_2$-norm or Euclidean norm:
 
 \[|x|_2 = \sqrt{x^{\top}x} = \sqrt{x_1^2 + \hdots + x_n^2}\]
 
-\noindent
 With a basis transform $A$ to the new basis $B'$ given by
 $B' = IA$ the canonical inner product in the new coordinates
 $x'$, $y'$ is given by:
@@ -126,11 +117,9 @@ $x'$, $y'$ is given by:
 \[\inner{x}{y} = x^{\top} y = {(Ax')}^{\top} (Ay')
 = x'^{\top} A^{\top} Ay' \equiv \inner{x'}{y'}_{A^{\top} A}\]
 
-\noindent
 The latter product is called the \textbf{induced inner product}
 from the matrix $A$.\\
 
-\noindent
 Two vectors $v$ and $w$ are \textbf{orthogonal} iff\\
 $\inner{v}{w} = 0$.
 
@@ -148,10 +137,8 @@ one can define their \textbf{Kronecker product} by:
 		a_{m1}B & \cdots & a_{mn}B \\
 	\end{pmatrix}
 \]
-\noindent
 In matlab: $C = \mathrm{kron}(A,B)$.
 
-\noindent
 Given a matrix $A \in \R^{m \times n}$, its \textbf{stack} $A^s$
 is obtained by stacking its $n$ column vectors $a_1, \ldots, a_n \in \R^m$:
 
@@ -163,7 +150,6 @@ is obtained by stacking its $n$ column vectors $a_1, \ldots, a_n \in \R^m$:
 	\end{pmatrix}
 \in \R^{mn}\]
 
-\noindent
 These notations allow to rewrite algebraic expressions, for example:
 
 \[u^{\top} A v = {( v \otimes u )}^{\top} A^s\]
@@ -178,17 +164,14 @@ $V$ and $W$ is a map $L : V \rightarrow W$ such that:
 	\forall x \in V, \forall \alpha \in \R,\quad L(\alpha x) &= \alpha L(x)
 \end{align*}
 
-\noindent
 Due to the linearity, the action of $L$ on the space $V$
 is uniquely defined by its action on the basis vectors of $V$.
 In the canonical basis ${e_1, \ldots, e_n}$ we have:
 
 \[\forall x \in V, \quad L(x) = Ax\]
-\noindent
 where
 \[A = (L(e_1), \ldots, L(e_n)) \in \R^{m \times n}\]
 
-\noindent
 The set of all $m \times n$ matrices is denoted by $\M(m,n)$.
 In case that $m = n$, the set $\M(m,n) \equiv \M(n)$
 forms a \textbf{ring} over the field $\R$, i.e.\ it is closed
@@ -214,13 +197,11 @@ $\circ : G \times G \rightarrow G$ such that:
 		g \circ \inv{g} = \inv{g} \circ g = e$
 \end{enumerate}
 
-\noindent
 All invertible (non-singular) real $n \times n$ matrices
 form a group with respect to matrix multiplication.
 This group is called the \textbf{general linear group} $GL(n)$.
 It consists of all $A \in \M(n)$ for which $\det(A) \ne 0$.\\
 
-\noindent
 All matrices $A \in GL(n)$ for which $\det(A) = 1$ form a group
 called the \textbf{special linear group} $SL(n)$.
 
@@ -233,7 +214,6 @@ a matrix group if there exists an injective transformation:
 
 \[R : G \rightarrow GL(n)\]
 
-\noindent
 which \textbf{preserves the group structure} of $G$,
 that is inverse and composition are preserved by the map:
 
@@ -242,7 +222,6 @@ that is inverse and composition are preserved by the map:
 	\forall (g,h) \in G^2, \quad R(g\circ h) &= R(g)R(h)
 \end{align*}
 
-\noindent
 Such a map $R$ is called a \textbf{group homomorphism}.
 The idea is to study properties of the group by the matrices properties.
 
@@ -254,7 +233,6 @@ An affine transformation $L : \R^n \rightarrow \R^n$
 is defined by a matrix $A \in GL(n)$ and a vector $b \in \R^n$ such that:
 \[L(x) = Ax + b\]
 
-\noindent
 The set of all such affine transformations is called the
 \textbf{affine group of dimension $n$}, denoted by $A(n)$.
 L defined above is not a linear map unless $b=0$.
@@ -277,7 +255,6 @@ $L$ becomes a linear mapping from:
 		1 \\
 	\end{pmatrix}\]
 
-\noindent
 A matrix $\inmatrix{A & b \\ 0 & 1}$ with $A \in GL(n)$ and $b \in R^n$
 is called an \textbf{affine matrix}. It is an element of $GL(n+1)$.
 The affine matrices form a subgroup of $GL(n+1)$.
@@ -290,18 +267,15 @@ A matrix $A \in \M(n)$ is called \textbf{orthogonal} if it preserves
 the inner product:
 \[\forall (x,y) \in {(\R^n)}^2 \quad \inner{Ax}{Ay} = \inner{x}{y}\]
 
-\noindent
 The set of all orthogonal matrices forms the \textbf{orthogonal group}
 $O(n)$, which is a subgroup of $GL(n)$.
 For an orthogonal matrix $R$ we have:
 \[\forall (x,y) \in {(\R^n)}^2, \quad
 \inner{Rx}{Ry} = \tr{x}\tr{R}Ry = \tr{x}y\]
 
-\noindent
 Therefore, we must have $\tr{R}R = R\tr{R} = I$, i.e.
 \[O(n) = \{ R \in GL(n) \ | \ \tr{R}R = I \}\]
 
-\noindent
 We can show that $\det(R) \in \{ \pm 1\}$.
 The subgroup of $O(n)$ with $\det(R) = +1$ is called
 the \textbf{special orthogonal group} $SO(n)$.
@@ -316,7 +290,6 @@ A Euclidean transformation $L$ from $\R^n$ to $\R^n$ is defined by
 an orthogonal matrix $R \in O(n)$ and a vector $T \in R^n$:
 \[L : \R^n \rightarrow \R^n; \quad x \mapsto Rx + T\]
 
-\noindent
 The set of all such transformations is called the
 \textbf{Euclidean group} $E(n)$. It is a subgroup of the affine group $A(n)$.
 \[E(n) = \left\{
@@ -327,11 +300,9 @@ The set of all such transformations is called the
 \ \middle| \ R \in O(n), \ T \in \R^n \right\}\]
 
 
-\noindent
 If $R \in SO(n)$ then we have the \textbf{special euclidean group} $SE(n)$.
 In particular, $SE(3)$ represent the \textbf{rigid-body motions} in $\R^3$.\\
 
-\noindent
 In summary:
 
 \[\boxed{SO(n) \subset O(n) \subset GL(n)}\]
@@ -350,13 +321,11 @@ The \textbf{range} or \textbf{span} of $A$ is defined as the subspace
 of $\Rm$ which can be ``reached'' by $A$:
 \[\text{range}(A) = \{ y \in \Rm \ |\  \exists x \in \Rn : Ax = y \}\]
 
-\noindent
 The range of a matrix $A$ is given by the span of its column vectors.
 The \textbf{null space} or \textbf{kernel} of a matrix $A$ is given by
 the subset of vectors $x \in \Rn$ which are mapped to zero:
 \[\text{null}(A) \equiv \ker(A) = \{ x \in \Rn \ | \ Ax = 0 \}\]
 
-\noindent
 The null space of a matrix $A$ is given by the vectors
 orthogonal to its row vectors. In matlab: $Z = \text{null}(A)$.
 The concepts of range and null space are useful when studying the
@@ -364,11 +333,9 @@ The concepts of range and null space are useful when studying the
 a solution $x \in \Rn$ if and only if $b \in \text{range}(A)$.
 Moreover, this solution will be unique only if $\ker(A) = \{0\}$.\\
 
-\noindent
 The \textbf{rank} of a matrix is the dimension of its range:
 \[\text{rank}(A) = \dim(\text{range}(A))\]
 
-\noindent
 The rank of a matrix $A \in \Rmn$ has the following properties:
 \begin{enumerate}
 	\item $\text{rank}(A) = n - \dim(\ker(A))$
@@ -395,16 +362,13 @@ Let $A \in \C^{n \times n}$ be a complex matrix.
 A non-zero vector $v \in \C^n$ is called a \textbf{(right) eigenvector of $A$} if:
 	\[\exists \lambda \in \C, \quad Av = \lambda v\]
 
-\noindent
 $\lambda$ is called an \textbf{eigenvalue of $A$}.
 Similarly $v$ is called a \textbf{left eigenvector} of $A$ if
 $\tr{v}A = \lambda \tr{v}$ for some $\lambda \in \C$.
 
-\noindent
 The \textbf{spectrum $\sigma(A)$ of a matrix $A$} is the set of all its eigenvalues.
 In Matlab: $[V,D] = \text{eig} (A)$;
 
-\noindent
 where $D$ is a diagonal matrix containing the eigenvalues and
 $V$ is a matrix whose columns are the corresponding eigenvectors,
 such that $AV = VD$.
@@ -440,7 +404,6 @@ A symmetric matrix S is called \textbf{positive semi-definite}
 (denoted by $S \ge 0$) if:
 	\[\forall x \ne 0, \quad \tr{x}Sx \ge 0\]
 
-\noindent
 $S$ is called \textbf{positive definite} (denoted by $S>0$) if this is $>0$.
 Let $S \in \R^{n \times n}$ be a real symmetric matrix. Then:
 \begin{enumerate}
@@ -472,18 +435,15 @@ on which $A$ operates. In particular, the
 	\[\|A\|_2 \equiv \underset{|x|_2=1}{\max} |Ax|_2
 	= \underset{|x|_2=1}{\max} \sqrt{\inner{x}{\tr{A}Ax}}\]
 
-\noindent
 Alternatively, one can define the \textbf{Frobenius norm of $A$} as:
 	\[\|A\|_f \equiv \sqrt{\sum_{i,j}a^2_{ij}}
 	= \sqrt{\text{trace}(\tr{A}A)}\]
 
-\noindent
 Note that these norms are in general not the same.
 Since the matrix $\tr{A}A$ is symmetric and pos.\ semi-definite,
 we can diagonalize it as:
 \[\tr{A}A = V \text{diag}\{\sigma^2_1, \ldots, \sigma^2_n\}\tr{V}\]
 
-\noindent
 with $\sigma^2_1 \ge \sigma^2_i \ge 0$. This leads to:
 	\[\|A\|_2 = \sigma_1\]
 	\[\|A\|_f = \sqrt{\text{trace}(\tr{A}A)} = \sqrt{\sigma^2_1 + \cdots + \sigma^2_n}\]
@@ -522,13 +482,11 @@ In Computer Vision, a common skew-symmetric matrix is given by the
 		-u_2 & u_1 & 0
 	\end{pmatrix} \in \R^{3 \times 3}\]
 
-\noindent
 This is a linear operator from the space of vectors $\R^3$
 to the space of skew-symmetric matrices in $\RR{3}{3}$.
 In particular, the matrix $\widehat{u}$ has the property that:
 	\[\widehat{u}v = u \times v\]
 
-\noindent
 where $\times$ denotes the standard vector cross product in $\R^3$.
 For $u \ne 0$, we have $\text{rank}(\widehat{u}) = 2$ and the null space
 of $\widehat{u}$ is spanned by u, because
@@ -566,23 +524,19 @@ $\text{rank}(A) = p$. Then there exist:
 		\Sigma = \text{diag}\{ \sigma_1, \ldots, \sigma_p \}$, with
 		$\sigma_1 \ge \ldots \ge \sigma_p$
 \end{itemize}
-\noindent
 such that:
 	\[A = U \Sigma \tr{V}\]
 
-\noindent
 Note that this \textbf{generalizes the eigenvalue decomposition}.
 While the latter decomposes a symmetric square matrix $A$ with
 an orthogonal transformation $V$ as:
 \[A = V \Lambda \tr{V}, \quad V \in O(n), \quad
 \Lambda = \text{diag}\{\lambda_1, \ldots, \lambda_n\}\]
 
-\noindent
 SVD allows to decompose an arbitrary (non-square) matrix $A$
 of rank $p$ with two transformations $U$ and $V$ with orthonormal
 columns as shown above.\\
 
-\noindent
 The proof is quite interresting and relies on properties of $\tr{A}A$.
 It is available in the second video, at minute 42.
 
@@ -600,7 +554,6 @@ by the diagonal matrix $\Sigma$. Each coordinate is merely scaled by
 the corresponding singular value:
 \[y = Ax = U\Sigma\tr{V}x \quad \Leftrightarrow \quad \tr{U}y = \Sigma \tr{V}x\]
 
-\noindent
 \textbf{The matrix $A$ maps the unit sphere into an ellipsoid with
 semi-axis $\sigma_i u_i$}. To see this, we call $\alpha \equiv \tr{V}x$
 the coefficients of the point $x$ in the basis $V$ and those of $y$
@@ -610,7 +563,6 @@ The above statement says that $\beta_i = \sigma_i\alpha_i$.
 Thus for the points on the sphere we have:
 	\[\sum_i\alpha^2_i = \sum_i\frac{\beta^2_i}{\sigma^2_i} = 1\]
 
-\noindent
 which states that the transformed points lie on an ellipsoid
 oriented along the axes of the basis $U$.
 
@@ -626,7 +578,6 @@ matrix $A \in \Rmn$. If its SVD is $A = U \Sigma \tr{V}$
 the pseudo inverse is defined as:
 	\[\pinv{A} = V \inv{\Sigma} \tr{U}\]
 
-\noindent
 If we consider the ``non-economical'' SVD decomposition
 (with $U \in \RR{m}{m}$, $\Sigma \in \Rmn$ (completed with 0), and $V \in \RR{n}{n}$),
 then this can also be written as:
@@ -637,14 +588,12 @@ then this can also be written as:
 			0 & 0
 		\end{pmatrix}_{n \times m}\]
 
-\noindent
 where $\Sigma_1$ is the diagonal matrix of non-zero singular values.
 \textbf{In Matlab:} $X = pinv(A)$.
 In particular, the pseudo inverse can be employed in similar fashion
 as the inverse of quadratic invertible matrices:
 	\[A \pinv{A} A = A, \quad \pinv{A} A \pinv{A} = \pinv{A}\]
 
-\noindent
 The linear system $Ax = b$ with $A \in \Rmn$ of rank $r \le \min(m,n)$
 can have multiple or no solutions.
 $x_{\min} = \pinv{A}b$ \textbf{is among all minimizers of $|Ax-b|^2$
