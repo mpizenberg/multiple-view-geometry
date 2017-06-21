@@ -1,5 +1,4 @@
 \documentclass[11pt,a4paper]{article}
-\usepackage{multicol}
 \usepackage[margin={2cm,2cm}]{geometry}
 \setlength{\columnsep}{1cm}
 \setlength{\parindent}{0pt}
@@ -20,9 +19,8 @@
 \tableofcontents
 \clearpage
 
-\begin{multicols}{2}
-\include{01_linear_algebra}
+\twocolumn
+\input{01_linear_algebra.tex}
 \include{02_representing_moving_scene}
-\end{multicols}
 
 \end{document}
