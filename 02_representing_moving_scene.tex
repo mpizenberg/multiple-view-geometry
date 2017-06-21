@@ -1,2 +1,239 @@
 \section{Representing a Moving Scene}
 \label{sec:moving_scene}
+
+
+\subsection{The Origins of 3D Reconstruction}
+\label{sub:the_origins_of_3d_reconstruction}
+
+The goal to reconstruct the three-dimensional structure of the world from
+a set of two-dimensional views has long history in computer vision.
+It is a classical \textbf{ill-posed problem}, because the reconstruction
+consistent with a given set of observations/images is typically not unique.
+Therefore, one will need to impose additional assumptions.
+Mathematically, the study of geometric relations between a 3D scene
+and the observed 2D projections is based on two types of transformations, namely:
+\begin{itemize}
+	\item \textbf{Euclidean motion} or \textbf{rigid body motion}
+		representing the motion of the camera from one frame to the next.
+	\item \textbf{Perspective projection} to account for the image formation
+		process (see pinhole camera, etc).
+\end{itemize}
+
+The notion of perspective projection has its roots among the ancient Greeks
+(Euclid of Alexandria, \roughly{} 400 B.C.) and the Renaissance period
+(Brunelleschi \& Alberti, 1435).
+The study of perspective projection lead to the field of
+\textbf{projective geometry} (Girard Desargues 1648, Gaspard Monge 18th cent).\\
+
+The first work on the problem of multiple view geometry was that of
+\textbf{Erwin Kruppa (1913)} who showed that two views of five points
+are sufficient to determine both the relative tansformation
+(\textbf{motion}) between the two views and the 3D location (\textbf{structure})
+of the points up to finitely many solutions.\\
+
+A linear algorithm to recover structure and motion from two views based
+on the epipolar constraint was proposed by \textbf{Longuet-Higgins}
+in \textbf{1981}. An entire series of works along these lines was summarized
+in several text books (Faugeras 1993, Kanatani 1993,
+Maybank 1993, Weng et al. 1993).\\
+
+Extensions to three views were developed by Spetsakis and Aloimonos '87, '90
+, and by Shashua '94 and Hartley '95.
+Factorization techniques for multiple views and orthogonal projection were
+developed by Tomasi and Kanade 1992.\\
+
+The joint estimation of camera motion and 3D location is called
+\textbf{structure and motion} or \textbf{visual SLAM}.
+
+
+\subsection{3D Space \& Rigid Body Motion}
+\label{sub:3d_space_rigid_body_motion}
+
+
+\subsubsection{Three-dimensional Euclidean Space}
+\label{ssub:three_dimensional_euclidean_space}
+
+The three-dimensional Euclidean space $\E^3$ consists of all points
+$p \in \E^3$ characterized by coordinates
+	\[\bm{X} \equiv \tr{(X_1, X_2, X_3)} \in \R^3\]
+
+such that $\E^3$ can be identified with $\R^3$.
+That means we talk about points ($\E^3$) and coordinates ($\R^3$)
+as if they were the same thing. Given two points $\bm{X}$ and $\bm{Y}$,
+one can define a \textbf{bound vector} as
+	\[v = \bm{Y} - \bm{X} \in \R^3\]
+
+Considering this vector independent of its base point $\bm{Y}$ makes
+it a \textbf{free vector}. The set of free vectors $v \in \R^3$
+forms a linear vector space. By identifying $\E^3$ and $\R^3$,
+one can endow $\E^3$ with a scalar product, a norm and a metric.
+This allows to compute \textbf{distances, curve length, areas or volumes.}
+\[\text{For a curve } \gamma : [0,1] \rightarrow \R^3,\quad
+	l(\gamma) \equiv \int_{0}^1 | \dot{\gamma}(s) | d\!s\]
+
+
+\subsubsection{Cross Product \& Skew-symmetric Matrices}
+\label{ssub:cross_product_and_skew_symmetric_matrices}
+
+On $\R^3$ one can define a cross product
+\[\times : \R^3 \times \R^3 \rightarrow \R^3,\quad u \times v =
+	\begin{pmatrix}
+		u_2v_3 - u_3v_2 \\
+		u_3v_1 - u_1v_3 \\
+		u_1v_2 - u_2v_1
+	\end{pmatrix} \in \R^3\]
+
+which is a vector \textbf{orthogonal to $u$ and $v$}.
+Since $u \times v = -v \times u$, the cross product introduces an \textbf{orientation}.
+Fixing $u$ induces a linear mapping $v \mapsto u \times v$ wich
+can be represented by the \textbf{skew-symmetric matrix}
+\[\widehat{u} = \hatmat{u_1}{u_2}{u_3} \in \RR{3}{3}\]
+
+In turn, every skew symmetric matrix $M = -\tr{M} \in \RR{3}{3}$
+can be identified with a vector $u \in \R^3$.
+The operator \^{} defines an \textbf{isomorphism} between $\R³$
+and the space $so(3)$ of the $3 \times 3$ skew-symmetric matrices.
+Its inverse is denoted by $\vee : so(3) \rightarrow \R^3$.
+
+
+\subsubsection{Rigid-body Motion}
+\label{ssub:rigid_body_motion}
+
+A \textbf{rigid-body motion} (or rigid-body transformation)
+is a family of maps
+\[g_t : \R^3 \rightarrow \R^3;\quad \bm{X} \mapsto g_t(\bm{X}),\quad t \in [0,T]\]
+
+which preserve the norm and cross product of any two vectors:
+\begin{itemize}
+	\setlength\itemsep{-0.2em}
+	\item $\forall v \in \R^3, \quad |g_t(v)| = |v|$
+	\item $\forall u,v \in \R^3, \quad g_t(u) \times g_t(v) = g_t(u \times v)$
+\end{itemize}
+
+Since norm and scalar product are related by the \textbf{polarization identity}
+\[\inner{u}{v} = \frac{1}{4}(|u+v|^2 - |u-v|^2)\]
+
+one can also state that a rigid-body motion is a map which
+preserves inner product and cross product.
+As a consequence, rigid-body motions also preserves the \textbf{triple product}
+\[\forall u, v, w \in \R^3, \quad
+	\inner{g_t(u)}{g_t(v) \times g_t(w)} = \inner{u}{v \times w}\]
+
+which means that they are volume-preserving.
+
+
+\subsubsection{Representation of Rigid-body Motion}
+\label{ssub:representation_of_rigid_body_motion}
+
+Let $g_t$ our rigid body motion. We are going to detail what this transformation
+is doing to the initial frame of orthonormal oriented vecors
+$e_1, e_2, e_3 \in \R^3$.
+We note the transformed vectors $r_i = g_t(e_i)$.
+Scalar and cross product of these vectors are preserved:
+	\[\tr{r_i}r_j = \tr{g_t(e_i)}g_t(e_j) = \tr{e_i}e_j = \delta_{ij}, \quad
+	r_1 \times r_2 = r_3\]
+
+The first constraint amounts to the statement that the matrix
+$R = (r_1, r_2, r_3)$ is an orthogonal matrix: $\bm{\tr{R}R=R\tr{R}=I}$,
+whereas the second property implies that $\bm{\det(R) = +1}$.
+In other words: $R$ is an element of the group
+$SO(3) = \{R \in \RR{3}{3}\ |\ \tr{R}R=I,\ \det(R) = +1\}$.\\
+
+The motion of the origin can be represented by a \textbf{translation}
+$\bm{T \in R^3}$. Thus the rigid body motion $g_t$ can be written as:
+	\[g_t(x) = Rx + T\]
+
+
+\subsubsection{Exponential Coordinates of Rotation}
+\label{ssub:exponential_coordinates_of_rotation}
+
+We will now derive a representation of an \textbf{infinitesimal rotation}.
+To this end, we consider a family of rotation matrices $R(t)$
+which continuously transform a point from its original location
+$(R(0) = I)$ to a different one.
+	\[\bm{X}_{\text{trans}}(t) = R(t)\bm{X}_{\text{orig}}, \quad
+	\text{with } R(t) \in SO(3)\]
+
+Since $\forall t,\ R(t)\tr{R(t)} = I$, we have:
+	\[\frac{d}{dt}(R\tr{R}) = \dot{R}\tr{R} + R\tr{\dot{R}}= 0
+	\implies \dot{R}\tr{R} = -\tr{( \dot{R}\tr{R} )}\]
+
+Thus, $\dot{R}\tr{R}$ is a \textbf{skew-symmetric matrix}.
+As shown in the section about the \^{} operator, this implies that
+there exists a vector $w(t) \in \R^3$ such that:
+	\[\dot{R}(t)\tr{R}(t) = \widehat{w}(t)
+	\Leftrightarrow \bm{ \dot{R}(t) = \widehat{w}(t)R(t)}\]
+
+Since $R(0) = I$, it follows that $\dot{R}(0) = \widehat{w}(0)$.
+Therefore, the \textbf{skew-symmetric matrix $\bm{\widehat{w}(0) \in so(3)}$
+gives the first order approximation of a rotation:}
+	\[R(dt) = R(0) + dR = I + \widehat{w}(0) dt\]
+
+
+\subsection{The Lie Group $SO(3)$}
+\label{sub:the_lie_group_so_3_}
+
+
+\subsubsection{Lie Group and Lie Algebra}
+\label{ssub:lie_group_and_lie_algebra}
+
+The above calculations showed that the effect of any infinitesimal
+rotation $R \in SO(3)$ can be approximated by an element from
+the space of skew-symmetric matrices
+	\[so(3) = \{ \widehat{w}\ |\ w \in \R^3\}\]
+
+The rotation group $SO(3)$ is called a \textbf{Lie group}.
+The space $so(3)$ is called its \textbf{Lie algebra}.\\
+
+\underline{Definition:}
+A \textbf{Lie group} (or infinitesimal group) is a smooth manifold that
+is also a group, such that the group operations multiplication
+and inversion are smooth maps.\\
+
+As shown above: \textbf{The Lie algebra $\bm{so(3)}$ is the tangent space
+at the identity of the rotation group $\bm{SO(3)}$.}\\
+
+An \textbf{algebra over a field $\bm{K}$} is a vector space $V$ over $K$
+with multiplication on the space $V$.
+Elements $\widehat{w}$ and $\widehat{v}$ of the Lie algebra
+generally do not commute.
+One can define the \textbf{Lie bracket}
+\[[\cdot,\cdot]: so(3) \times so(3) \rightarrow so(3);\quad
+[\widehat{w},\widehat{v}] \equiv \widehat{w}\widehat{v} - \widehat{v}\widehat{w}\]
+
+
+\subsubsection{Sophus Lie (1841--1899)}
+\label{ssub:sophus_lie_1841_1899_}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=10em]{img/sophus_lie.jpg}
+\caption{Portrait of Marius Sophus Lie}
+\end{figure}
+
+Marius Sophus Lie was a Norwegian-born mathematician.
+He created the theory of \textbf{continuous symmetry}, and applied it to
+the study of geometry and differential equations. Among his greatest
+achievements was the discovery that continuous transformation
+groups are better understood in their linearized versions (1893).
+These \textbf{infinitesimal generators} form a structure which is today
+known as a \textbf{Lie algebra}. The linearized version of the group law
+corresponds to an operation on the Lie algebra known as
+the \textbf{commutator bracket} or \textbf{Lie bracket}.
+1882 Professor in Christiania (Oslo),
+1886 Leipzig (succeeding Felix Klein),
+1898 Christiania.
+
+
+\subsection{The Lie Group $SE(3)$}
+\label{sub:the_lie_group_se_3_}
+
+
+\subsection{Representing the Camera Motion}
+\label{sub:representing_the_camera_motion}
+
+
+\subsection{Euler Angles}
+\label{sub:euler_angles}
+
+

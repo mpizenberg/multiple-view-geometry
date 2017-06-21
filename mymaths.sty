@@ -3,9 +3,11 @@
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{mathtools}
+\usepackage{bm} % bold maths
 
 \newcommand*\conj[1]{\overline{#1}}
 \newcommand*\mean[1]{\overline{#1}}
+\newcommand{\E}{\mathbb{E}} % Euclidean space
 \newcommand{\C}{\mathbb{C}} % Complex set
 \newcommand{\R}{\mathbb{R}} % Real set
 \newcommand{\RR}[2]{\mathbb{R}^{#1 \times{} #2}} % Real set
@@ -17,5 +19,7 @@
 \newcommand{\pinv}[1]{#1^{\dagger}} % Pseudo Inverse
 \newcommand{\tr}[1]{#1^{\top}} % Transpose
 \newcommand{\inmatrix}[1]{\left(\begin{smallmatrix} #1 \end{smallmatrix} \right)} % Inline small matrix
+\newcommand{\hatmat}[3]{\begin{pmatrix}0 & -#3 & #2 \\ #3 & 0 & -#1 \\ -#2 & #1 & 0\end{pmatrix}} % hat operator skew-symmetric matrix
+
 % requires mathtools
 \DeclarePairedDelimiterX{\inner}[2]{\langle}{\rangle}{#1, #2} % Inner product
