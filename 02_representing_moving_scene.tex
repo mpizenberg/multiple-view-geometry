@@ -208,14 +208,15 @@ One can define the \textbf{Lie bracket}
 \begin{figure}[ht]
 \centering
 \includegraphics[width=10em]{img/sophus_lie.jpg}
-\caption{Portrait of Marius Sophus Lie}
+\caption*{Portrait of Marius Sophus Lie}
 \end{figure}
 
 Marius Sophus Lie was a Norwegian-born mathematician.
 He created the theory of \textbf{continuous symmetry}, and applied it to
 the study of geometry and differential equations. Among his greatest
 achievements was the discovery that continuous transformation
-groups are better understood in their linearized versions (1893).
+groups are better understood in their linearized versions
+(``Theory of transformation groups'' 1893).
 These \textbf{infinitesimal generators} form a structure which is today
 known as a \textbf{Lie algebra}. The linearized version of the group law
 corresponds to an operation on the Lie algebra known as
@@ -225,8 +226,158 @@ the \textbf{commutator bracket} or \textbf{Lie bracket}.
 1898 Christiania.
 
 
+\subsubsection{The Exponential Map}
+\label{ssub:the_exponential_map}
+
+Given the infinitesimal formulation of rotation,
+we got to the differential equation system:
+	\[\left\{ \begin{aligned}
+		\dot{R}(t) &= \widehat{w}(t)R(t) \\
+		R(0) &= I \\
+	\end{aligned}\right.\]
+
+If we assume that $\widehat{w}(t)$ is constant in time ($=\widehat{w}$),
+this known equation has the solution:
+	\[R(t) = e^{\widehat{w}t}
+		= \sum_{n=0}^{\infty} \frac{{(\widehat{w}t)}^n }{n!}
+		= I + \widehat{w}t + \frac{{(\widehat{w}t)}^2 }{2!} + \ldots \]
+
+which is a rotation around the axis $w \in \R^3$
+by an angle of t (if $\|w\| = 1$). Alternatively, one can absorb
+the scalar $t \in \R$ into the skew  symmetric matrix $\widehat{w}$
+to obtain $R(t) = e^{\widehat{v}}$ with $\widehat{v} = \widehat{w}t$.
+This \textbf{matrix exponential} therefore defines a map from
+the Lie algebra to the Lie group:
+	\[\exp : so(3) \rightarrow SO(3);\quad \widehat{w}\mapsto e^{\widehat{w}}\]
+
+
+\subsubsection{The Logarithm of $SO(3)$}
+\label{ssub:the_logarithm_of_so_3_}
+
+There is conversely a mapping from the Lie group to the Lie algebra.
+For any rotation matrix $R \in SO(3)$, there exists a $w \in \R^3$
+such that $R = \exp(\widehat{w})$. Such an element is denoted by
+$\widehat{w} = \log(R)$. If $\R \ne I$, we note $r_{ij}$ its coefficients
+and $w$ is given by:
+	\[\left\{ \begin{aligned}
+		|w| &= \inv{\cos}\left(\frac{\text{trace}(R)-1}{2}\right)\\
+		\frac{w}{|w|} &= \frac{1}{2\sin(|w|)}
+			\begin{pmatrix}
+				r_{32} - r_{23} \\
+				r_{13} - r_{31} \\
+				r_{21} - r_{12} \\
+			\end{pmatrix}
+	\end{aligned}\right.\]
+
+For $R = I$, we have $|w| = 0$, i.e.\ a rotation by an angle 0.
+The above statement says:
+\textbf{Any orthogonal transformation $\bm{\R \in SO(3)}$ can be realized
+by rotating by an angle $\bm{|w|}$ around an axis
+$\bm{\frac{w}{|w|}}$ as defined above}.\\
+
+Obviously the above representation is not unique since for example,
+increasing the angle by multiples of $2\pi$ will give the same rotation.
+
+
+\subsubsection{Rodrigues' Formula}
+\label{ssub:rodrigues_formula}
+
+In analogy to the well-known Euler equation
+	\[\forall \phi \in \R, \quad  e^{i\phi} = \cos(\phi) + i\ \sin(\phi)\]
+
+we have an expression for skew symmetric matrices $\widehat{w} \in so(3)$:
+	\[\boxed{
+	e^{\widehat{w}} = I + \frac{\widehat{w}}{|w|} \sin(|w|)
+		+ \frac{\widehat{w}^2}{|w|^2} (1 - \cos(|w|))}\]
+
+This is known as \textbf{Rodrigues' formula}.\\
+
+\underline{Proof sketch:}
+Let $t = |w|$ and $v = w/|w|$ such that $w = vt$. Then one can show that:
+	\[\widehat{v}^2 = v\tr{v} - I \quad
+	\text{and}\quad \widehat{v}^3 = -\widehat{v}\]
+Thus, by developing the exponential, we get:
+	\[e^{\widehat{v}t} = I +
+		\underbrace{\left( t - \frac{t^3}{3!} + \cdots \right)}_{\sin(t)}\widehat{v}
+	+ \underbrace{\left(\frac{t^2}{2!}-\frac{t^4}{4!}+\cdots \right)}_{1-\cos(t)}
+		\widehat{v}^2\]
+
+
 \subsection{The Lie Group $SE(3)$}
 \label{sub:the_lie_group_se_3_}
+
+
+\subsubsection{Representation of Rigid-body Motions $SE(3)$}
+\label{ssub:representation_of_rigid_body_motions_se_3_}
+
+We have seen that the space of rigid-body motions is given by
+the group of special Euclidean transformations:
+	\[SE(3) \equiv \{ g = (R,T)\ |\ R \in SO(3),\ T \in \R^3\}\]
+In homogeneous coordinates:
+	\[\boxed{SE(3) \equiv
+	\left\{ g = \begin{pmatrix}
+		R & T \\
+		0 & 1 \\
+	\end{pmatrix}\ \middle|\ R \in SO(3), T \in \R^3\right\}}\]
+
+In the context of rigid motions, one can see the difference
+between points in $\E^3$ (which can be rotated and translated)
+and vectors in $\R^3$ (which can only be rotated).
+
+
+\subsubsection{The Lie Algebra of Twists}
+\label{ssub:the_lie_algebra_of_twists}
+
+Given a continuous family of rigid-body transformations:
+	\[g : \R \rightarrow SE(3);\quad g(t) = \begin{pmatrix}
+		R(t) & T(t) \\
+		0 & 1 \\
+	\end{pmatrix}\ \in \RR{4}{4}\]
+
+we consider:
+	\[\dot{g}(t)\inv{g}(t) = \begin{pmatrix}
+		\dot{R}\tr{R} & \dot{T} - \dot{R}\tr{R}T \\
+		0 & 0 \\
+	\end{pmatrix}\ \in \RR{4}{4}\]
+
+As in the case of $SO(3)$ the $\dot{R}\tr{R}$ corresponds
+to some skew-symmetric matrix $\widehat{w} \in so(3)$. Defining a vector
+$v(t) = \dot{T}(t) - \widehat{w}(t)T(t)$, we have:
+	\[\dot{g}(t)\inv{g}(t) = \begin{pmatrix}
+		\widehat{w}(t) & v(t) \\
+		0 & 0 \\
+	\end{pmatrix} \equiv \widehat{\xi}(t) \in \RR{4}{4}\]
+
+Multiplying with $g(t)$ from the right, we obtain:
+	\[\dot{g} = \dot{g}\inv{g}g = \widehat{\xi}g\]
+
+The $4 \times 4$ matrix $\widehat{\xi}$ can be viewed as a tangent vector
+along the curve $g(t)$. $\widehat{\xi}$ is called a \textbf{twist}.
+As in the case of $so(3)$, the set of all twists forms the tangent
+space which is the \textbf{Lie algebra}
+	\[\boxed{se(3) \equiv \left\{ \widehat{\xi} = \begin{pmatrix}
+		\widehat{w} & v \\
+		0 & 0 \\
+	\end{pmatrix}\ \middle|
+	\ \widehat{w} \in so(3),\ v \in \R^3 \right\}}\]
+
+	to the \textbf{Lie group $\bm{SE(3)}$}.\\
+
+As before, we can define operators $\wedge$ and $\vee$ to convert between
+a \textbf{twist $\bm{\widehat{\xi} \in se(3)}$} and its
+\textbf{twist coordinates} $\bm{ \xi \in \R^6 }$:
+	\[\widehat{\xi} \equiv \begin{pmatrix} v \\ w \end{pmatrix}^{\wedge}
+		\equiv \begin{pmatrix}
+			\widehat{w} & v \\
+			0 & 0
+		\end{pmatrix}\ \in \RR{4}{4}\]
+
+	\[\begin{pmatrix}
+		\widehat{w} & v \\
+		0 & 0
+	\end{pmatrix}^{\vee} \equiv \begin{pmatrix} v \\ w \end{pmatrix} \in \R^6\]
+
+Start of video 4
 
 
 \subsection{Representing the Camera Motion}
