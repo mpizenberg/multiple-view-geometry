@@ -1,10 +1,10 @@
 \section[Mathematical Background: Linear Algebra]
-	{Mathematical Background:\\Linear Algebra}
+	{Mathematical Background:\\Linear Algebra}%
 \label{sec:linear_algebra}
 
 This is intended as being a short crash course of linear algebra.
 
-\subsection{Vector Spaces}
+\subsection{Vector Spaces}%
 \label{sub:vector_spaces}
 
 A set $V$ is called a \textbf{linear space}
@@ -42,7 +42,7 @@ spans the vector space $V$.
 A basis is a maximal set of linearly independent vectors.
 
 
-\subsubsection{Properties of a Basis}
+\subsubsection{Properties of a Basis}%
 \label{ssub:properties_of_a_basis}
 
 Let $B$ and $B'$ be two bases of a linear space $V$.
@@ -70,7 +70,7 @@ Let $B$ and $B'$ be two bases of a linear space $V$.
 \end{enumerate}
 
 
-\subsubsection{Inner Product}
+\subsubsection{Inner Product}%
 \label{ssub:inner_product}
 
 On a vector space, one can define an \textbf{inner product}
@@ -99,7 +99,7 @@ A vector space with an inner product is then also
 a \textbf{metric space}. It is called a \textbf{Hilbert space}.
 
 
-\subsubsection{Canonical and Induced Inner Product}
+\subsubsection{Canonical and Induced Inner Product}%
 \label{ssub:canonical_and_induced_inner_product}
 
 On $V = \R^n$, one can define the canonical inner product for
@@ -125,7 +125,7 @@ Two vectors $v$ and $w$ are \textbf{orthogonal} iff\\
 $\inner{v}{w} = 0$.
 
 
-\subsubsection{Kronecker Product and Stack of a Matrix}
+\subsubsection{Kronecker Product and Stack of a Matrix}%
 \label{ssub:kronecker_product_and_stack_of_a_matrix}
 
 Given two matrices $A \in \R^{m\times n}$ and $B \in \R^{k \times l}$,
@@ -155,7 +155,7 @@ These notations allow to rewrite algebraic expressions, for example:
 
 \[u^{\top} A v = {( v \otimes u )}^{\top} A^s\]
 
-\subsection{Linear Transformations and Matrices}
+\subsection{Linear Transformations and Matrices}%
 \label{sub:linear_transformations_and_matrices}
 
 A \textbf{linear transformation} $L$ between tow linear spaces
@@ -179,7 +179,7 @@ forms a \textbf{ring} over the field $\R$, i.e.\ it is closed
 under matrix multiplication and summation.
 
 
-\subsubsection{The Linear Groups $GL(n)$ and $SL(n)$}
+\subsubsection{The Linear Groups $GL(n)$ and $SL(n)$}%
 \label{ssub:the_linear_groups_gl_n_and_sl_n_}
 
 A \textbf{group} is a set $G$ with an operation
@@ -207,7 +207,7 @@ All matrices $A \in GL(n)$ for which $\det(A) = 1$ form a group
 called the \textbf{special linear group} $SL(n)$.
 
 
-\subsubsection{Matrix Representation of Groups}
+\subsubsection{Matrix Representation of Groups}%
 \label{ssub:matrix_representation_of_groups}
 
 A group $G$ has a \textbf{matrix representation} or can be realized as
@@ -227,7 +227,7 @@ Such a map $R$ is called a \textbf{group homomorphism}.
 The idea is to study properties of the group by the matrices properties.
 
 
-\subsubsection{The Affine Group $A(n)$}
+\subsubsection{The Affine Group $A(n)$}%
 \label{ssub:the_affine_group_a_n_}
 
 An affine transformation $L : \R^n \rightarrow \R^n$
@@ -261,7 +261,7 @@ is called an \textbf{affine matrix}. It is an element of $GL(n+1)$.
 The affine matrices form a subgroup of $GL(n+1)$.
 
 
-\subsubsection{The Orthogonal Group $O(n)$}
+\subsubsection{The Orthogonal Group $O(n)$}%
 \label{ssub:the_orthogonal_group_o_n_}
 
 A matrix $A \in \M(n)$ is called \textbf{orthogonal} if it preserves
@@ -284,7 +284,7 @@ $SO(n) = O(n) \cap SL(n)$.
 In particular, $SO(3)$ is the group of all 3-dimensional rotation matrices.
 
 
-\subsubsection{The Euclidean Group $E(n)$}
+\subsubsection{The Euclidean Group $E(n)$}%
 \label{ssub:the_euclidean_group_e_n_}
 
 A Euclidean transformation $L$ from $\R^n$ to $\R^n$ is defined by
@@ -310,11 +310,11 @@ In summary:
 \[\boxed{SE(n) \subset E(n) \subset A(n) \subset GL(n+1)}\]
 
 
-\subsection{Properties of Matrices}
+\subsection{Properties of Matrices}%
 \label{sub:properties_of_matrices}
 
 
-\subsubsection{Range, Span, Null Space and Kernel}
+\subsubsection{Range, Span, Null Space and Kernel}%
 \label{ssub:range_span_null_space_and_kernel}
 
 Let $A \in \Rmn$ be a matrix defining a linear map from $\Rn$ to $\Rm$.
@@ -356,7 +356,7 @@ The rank of a matrix $A \in \Rmn$ has the following properties:
 \end{enumerate}
 
 
-\subsubsection{Eigenvalues and Eigenvectors}
+\subsubsection{Eigenvalues and Eigenvectors}%
 \label{ssub:eigenvalues_and_eigenvectors}
 
 Let $A \in \C^{n \times n}$ be a complex matrix.
@@ -375,7 +375,7 @@ $V$ is a matrix whose columns are the corresponding eigenvectors,
 such that $AV = VD$.
 
 
-\subsubsection{Properties of Eigenvalues and Eigenvectors}
+\subsubsection{Properties of Eigenvalues and Eigenvectors}%
 \label{ssub:properties_of_eigenvalues_and_eigenvectors}
 
 Let $A \in \R^{n \times n}$ be a square matrix, then:
@@ -397,7 +397,7 @@ Let $A \in \R^{n \times n}$ be a square matrix, then:
 \end{enumerate}
 
 
-\subsubsection{Symmetric Matrices}
+\subsubsection{Symmetric Matrices}%
 \label{ssub:symmetric_matrices}
 
 A matrix $S \in \R^{n \times n}$ is called \textbf{symmetric} if $\tr{S} = S$.
@@ -426,7 +426,7 @@ Let $S \in \R^{n \times n}$ be a real symmetric matrix. Then:
 \end{enumerate}
 
 
-\subsubsection{Norms of Matrices}
+\subsubsection{Norms of Matrices}%
 \label{ssub:norms_of_matrices}
 
 There are many ways to define norms on the space of matrices $A \in \Rmn$.
@@ -449,7 +449,7 @@ with $\sigma^2_1 \ge \sigma^2_i \ge 0$. This leads to:
 	\[\|A\|_2 = \sigma_1\]
 	\[\|A\|_f = \sqrt{\text{trace}(\tr{A}A)} = \sqrt{\sigma^2_1 + \cdots + \sigma^2_n}\]
 
-\subsubsection{Skew-symmetric Matrices}
+\subsubsection{Skew-symmetric Matrices}%
 \label{ssub:skew_symmetric_matrices}
 
 A matrix $A \in \R^{n \times n}$ is called
@@ -472,7 +472,7 @@ If $A$ is a real skew-symmetric matrix, then:
 \end{enumerate}
 
 
-\subsubsection{Hat Operator}
+\subsubsection{Hat Operator}%
 \label{ssub:hat_operator}
 
 In Computer Vision, a common skew-symmetric matrix is given by the
@@ -494,7 +494,7 @@ of $\widehat{u}$ is spanned by u, because
 $\widehat{u}u = \tr{u}\widehat{u} = 0$.
 
 
-\subsection{The Singular Value Decomposition}
+\subsection{The Singular Value Decomposition}%
 \label{sub:the_singular_value_decomposition}
 
 Many of matrix properties can be captured by the so-called
@@ -513,7 +513,7 @@ It is very useful for solving linear-algebraic problems such as:
 \end{itemize}
 
 
-\subsubsection{Algebraic Derivation of SVD}
+\subsubsection{Algebraic Derivation of SVD}%
 \label{ssub:algebraic_derivation_of_svd}
 
 Let $A \in \Rmn$ with $m \ge n$ be a matrix of rank
@@ -542,7 +542,7 @@ The proof is quite interresting and relies on properties of $\tr{A}A$.
 It is available in the second video, at minute 42.
 
 
-\subsubsection{A Geometric Interpretation of SVD}
+\subsubsection{A Geometric Interpretation of SVD}%
 \label{ssub:a_geometric_interpretation_of_svd}
 
 For $A \in \RR{n}{n}$, the singular value decomposition
@@ -568,7 +568,7 @@ which states that the transformed points lie on an ellipsoid
 oriented along the axes of the basis $U$.
 
 
-\subsubsection{The Generalized (Moore Penrose) Inverse}
+\subsubsection{The Generalized (Moore Penrose) Inverse}%
 \label{ssub:the_generalized_moore_penrose_inverse}
 
 For certain quadratic matrices, one can define an inverse matrix, if $\det(A) \ne 0$.
