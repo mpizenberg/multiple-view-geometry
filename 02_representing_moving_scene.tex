@@ -1,8 +1,8 @@
-\section{Representing a Moving Scene}
+\section{Representing a Moving Scene}%
 \label{sec:moving_scene}
 
 
-\subsection{The Origins of 3D Reconstruction}
+\subsection{The Origins of 3D Reconstruction}%
 \label{sub:the_origins_of_3d_reconstruction}
 
 The goal to reconstruct the three-dimensional structure of the world from
@@ -46,11 +46,11 @@ The joint estimation of camera motion and 3D location is called
 \textbf{structure and motion} or \textbf{visual SLAM}.
 
 
-\subsection{3D Space \& Rigid Body Motion}
+\subsection{3D Space \& Rigid Body Motion}%
 \label{sub:3d_space_rigid_body_motion}
 
 
-\subsubsection{Three-dimensional Euclidean Space}
+\subsubsection{Three-dimensional Euclidean Space}%
 \label{ssub:three_dimensional_euclidean_space}
 
 The three-dimensional Euclidean space $\E^3$ consists of all points
@@ -72,7 +72,7 @@ This allows to compute \textbf{distances, curve length, areas or volumes.}
 	l(\gamma) \equiv \int_{0}^1 | \dot{\gamma}(s) | d\!s\]
 
 
-\subsubsection{Cross Product \& Skew-symmetric Matrices}
+\subsubsection{Cross Product \& Skew-symmetric Matrices}%
 \label{ssub:cross_product_and_skew_symmetric_matrices}
 
 On $\R^3$ one can define a cross product
@@ -91,12 +91,12 @@ can be represented by the \textbf{skew-symmetric matrix}
 
 In turn, every skew symmetric matrix $M = -\tr{M} \in \RR{3}{3}$
 can be identified with a vector $u \in \R^3$.
-The operator \^{} defines an \textbf{isomorphism} between $\R³$
+The operator $\widehat{}$ defines an \textbf{isomorphism} between $\R³$
 and the space $so(3)$ of the $3 \times 3$ skew-symmetric matrices.
 Its inverse is denoted by $\vee : so(3) \rightarrow \R^3$.
 
 
-\subsubsection{Rigid-body Motion}
+\subsubsection{Rigid-body Motion}%
 \label{ssub:rigid_body_motion}
 
 A \textbf{rigid-body motion} (or rigid-body transformation)
@@ -122,7 +122,7 @@ As a consequence, rigid-body motions also preserves the \textbf{triple product}
 which means that they are volume-preserving.
 
 
-\subsubsection{Representation of Rigid-body Motion}
+\subsubsection{Representation of Rigid-body Motion}%
 \label{ssub:representation_of_rigid_body_motion}
 
 Let $g_t$ our rigid body motion. We are going to detail what this transformation
@@ -144,7 +144,7 @@ $\bm{T \in R^3}$. Thus the rigid body motion $g_t$ can be written as:
 	\[g_t(x) = Rx + T\]
 
 
-\subsubsection{Exponential Coordinates of Rotation}
+\subsubsection{Exponential Coordinates of Rotation}%
 \label{ssub:exponential_coordinates_of_rotation}
 
 We will now derive a representation of an \textbf{infinitesimal rotation}.
@@ -159,7 +159,7 @@ Since $\forall t,\ R(t)\tr{R(t)} = I$, we have:
 	\implies \dot{R}\tr{R} = -\tr{( \dot{R}\tr{R} )}\]
 
 Thus, $\dot{R}\tr{R}$ is a \textbf{skew-symmetric matrix}.
-As shown in the section about the \^{} operator, this implies that
+As shown in the section about the $\widehat{}$ operator, this implies that
 there exists a vector $w(t) \in \R^3$ such that:
 	\[\dot{R}(t)\tr{R}(t) = \widehat{w}(t)
 	\Leftrightarrow \bm{ \dot{R}(t) = \widehat{w}(t)R(t)}\]
@@ -170,11 +170,11 @@ gives the first order approximation of a rotation:}
 	\[R(dt) = R(0) + dR = I + \widehat{w}(0) dt\]
 
 
-\subsection{The Lie Group $SO(3)$}
+\subsection{The Lie Group $SO(3)$}%
 \label{sub:the_lie_group_so_3_}
 
 
-\subsubsection{Lie Group and Lie Algebra}
+\subsubsection{Lie Group and Lie Algebra}%
 \label{ssub:lie_group_and_lie_algebra}
 
 The above calculations showed that the effect of any infinitesimal
@@ -202,7 +202,7 @@ One can define the \textbf{Lie bracket}
 [\widehat{w},\widehat{v}] \equiv \widehat{w}\widehat{v} - \widehat{v}\widehat{w}\]
 
 
-\subsubsection{Sophus Lie (1841--1899)}
+\subsubsection{Sophus Lie (1841--1899)}%
 \label{ssub:sophus_lie_1841_1899_}
 
 \begin{figure}[ht]
@@ -226,7 +226,7 @@ the \textbf{commutator bracket} or \textbf{Lie bracket}.
 1898 Christiania.
 
 
-\subsubsection{The Exponential Map}
+\subsubsection{The Exponential Map}%
 \label{ssub:the_exponential_map}
 
 Given the infinitesimal formulation of rotation,
@@ -251,13 +251,13 @@ the Lie algebra to the Lie group:
 	\[\exp : so(3) \rightarrow SO(3);\quad \widehat{w}\mapsto e^{\widehat{w}}\]
 
 
-\subsubsection{The Logarithm of $SO(3)$}
+\subsubsection{The Logarithm of $SO(3)$}%
 \label{ssub:the_logarithm_of_so_3_}
 
 There is conversely a mapping from the Lie group to the Lie algebra.
 For any rotation matrix $R \in SO(3)$, there exists a $w \in \R^3$
 such that $R = \exp(\widehat{w})$. Such an element is denoted by
-$\widehat{w} = \log(R)$. If $\R \ne I$, we note $r_{ij}$ its coefficients
+$\widehat{w} = \log(R)$. If $R \ne I$, we note $r_{ij}$ its coefficients
 and $w$ is given by:
 	\[\left\{ \begin{aligned}
 		|w| &= \inv{\cos}\left(\frac{\text{trace}(R)-1}{2}\right)\\
@@ -279,7 +279,7 @@ Obviously the above representation is not unique since for example,
 increasing the angle by multiples of $2\pi$ will give the same rotation.
 
 
-\subsubsection{Rodrigues' Formula}
+\subsubsection{Rodrigues' Formula}%
 \label{ssub:rodrigues_formula}
 
 In analogy to the well-known Euler equation
@@ -303,11 +303,11 @@ Thus, by developing the exponential, we get:
 		\widehat{v}^2\]
 
 
-\subsection{The Lie Group $SE(3)$}
+\subsection{The Lie Group $SE(3)$}%
 \label{sub:the_lie_group_se_3_}
 
 
-\subsubsection{Representation of Rigid-body Motions $SE(3)$}
+\subsubsection{Representation of Rigid-body Motions $SE(3)$}%
 \label{ssub:representation_of_rigid_body_motions_se_3_}
 
 We have seen that the space of rigid-body motions is given by
@@ -325,7 +325,7 @@ between points in $\E^3$ (which can be rotated and translated)
 and vectors in $\R^3$ (which can only be rotated).
 
 
-\subsubsection{The Lie Algebra of Twists}
+\subsubsection{The Lie Algebra of Twists}%
 \label{ssub:the_lie_algebra_of_twists}
 
 Given a continuous family of rigid-body transformations:
@@ -377,14 +377,187 @@ a \textbf{twist $\bm{\widehat{\xi} \in se(3)}$} and its
 		0 & 0
 	\end{pmatrix}^{\vee} \equiv \begin{pmatrix} v \\ w \end{pmatrix} \in \R^6\]
 
-Start of video 4
+
+\subsubsection{Exponential Coordinates for $SE(3)$}%
+\label{ssub:exponential_coordinates_for_se_3_}
+
+The twist coordinates $\xi = \inmatrix{v\\w}$ are formed by stacking the
+\textbf{linear velocity} $\bm{v \in \R^3}$ (related to translation) and the
+\textbf{angular velocity} $\bm{w \in \R^3}$ (related to rotation).\\
+
+The differential equation system:
+	\[\left\{ \begin{aligned}
+		\dot{g}(t) &= \widehat{\xi}g(t), \quad \widehat{\xi} = \text{const}\\
+		g(0) &= I
+	\end{aligned} \right.\]
+
+has the solution $g(t) = e^{\widehat{\xi}t} = \sum_{n=0}^{\infty}
+\frac{{(\widehat{\xi}t)}^n}{n!}$.
+For $w = 0$, we have $e^{\widehat{\xi}} = \inmatrix{I & v \\ 0 & 1}$,
+while for $w \ne 0$ one can show:
+	\[\boxed{e^{\widehat{\xi}} = \begin{pmatrix}
+		e^{\widehat{w}} & \frac{(I-e^{\widehat{w}})\widehat{w}v + w\tr{w}v}{|w|}\\
+		0 & 1
+	\end{pmatrix}}\]
+
+The above shows that the exponential map defines a transformation from
+the Lie algebra $se(3)$ to the Lie group $SE(3)$:
+	\[ \exp:\ se(3) \rightarrow SE(3);\ \widehat{\xi} \mapsto e^{\widehat{\xi}}\]
+
+The elements $\widehat{\xi} \in se(3)$ are called the
+\textbf{exponential coordinates} for $SE(3)$.\\
+
+\underline{Conversely:} \textbf{For every $\bm{g \in SE(3)}$ there exist
+twist coordinates $\bm{\xi = (v,w) \in \R^6}$ such that $\bm{g=\exp(\widehat{\xi})}$.}\\
+
+\underline{Proof sketch:} Given $g = (R,T)$, we merely need to solve the equation
+for the velocity vector $v \in \R^3$:
+	\[\frac{(I-e^{\widehat{w}})\widehat{w}v + w\tr{w}v}{|w|} = T\]
 
 
-\subsection{Representing the Camera Motion}
+Be aware that, just as in $SO(3)$, \textbf{this representation is not unique}.
+In general, there exist many twists representing the same rigid-body motion.
+
+
+\subsection{Representing the Camera Motion}%
 \label{sub:representing_the_camera_motion}
 
+When observing a scene from a moving camera, the coordinates and velocity
+of points in camera coordinates will change. We will use a rigid-body transformation
+	\[g(t) = \begin{pmatrix}
+		R(t) & T(t) \\
+		0 & 1
+	\end{pmatrix}\ \in SE(3)\]
 
-\subsection{Euler Angles}
+to represent the motion from a fixed world frame to the camera frame at time $t$.
+In particular, we assume that at time $t=0$ the camera frame coincides with the
+world frame, i.e.\ $g(0)=I$.
+For any point $\bm{X_0}$ in world coordinates,
+its coordinates in the camera at time $t$ are:
+	\[\bm{X}(t) = R(t)\bm{X_0} + T(t)\]
+
+or in the homogeneous representation:
+	\[\bm{X}(t) = g(t)\bm{X_0}\]
+
+Please remark that for practicity, we use the same notation
+in 3D coordinates and homogeneous coordinates but these are different.
+
+
+\subsubsection{Concatenation of Motions over Frames}%
+\label{ssub:concatenation_of_motions_over_frames}
+
+Given two different times $t_1$ and $t_2$, we denote the transformation from
+the points in frame $t_1$ to the points in frame $t_2$ by $g(t_2,t_1)$:
+	\[\bm{X}(t_2) = g(t_2,t_1) \bm{X}(t_1)\]
+
+Those transformations composes, and we can very easily show that:
+	\[g(t_3,t_1) = g(t_3,t_2) g(t_2,t_1)\]
+
+and
+	\[\inv{g}(t_2,t_1) = g(t_1,t_2)\]
+
+
+\subsubsection{Rules of Velocity Transformation}%
+\label{ssub:rules_of_velocity_transformation}
+
+Since the coordinates of point $\bm{X}_0$ in frame $t$ are given by
+$\bm{X}(t) = g(t) \bm{X}_0$, the velocity is given by:
+	\[\bm{\dot{X}}(t) = \dot{g}(t)\bm{X}_0 = \dot{g}(t)\inv{g}(t) \bm{X}(t)\]
+
+By introducing the \textbf{twist coordinates}:
+	\[\widehat{V}(t) \equiv \dot{g}(t)\inv{g}(t) = \begin{pmatrix}
+		\widehat{w}(t) & v(t) \\
+		0 & 0 \\
+	\end{pmatrix}\ \in se(3)\]
+
+we get the expression:
+	\[\boxed{\bm{\dot{X}}(t) = \widehat{V}(t)\bm{X}(t)}\]
+
+which in simple 3D-coordinates gives:
+	\[\bm{\dot{X}}(t) = \widehat{w}(t)\bm{X}(t) + v(t)\]
+
+
+\subsubsection{Transfer Between Frames: The Adjoint Map}%
+\label{ssub:transfer_between_frames_the_adjoint_map}
+
+Suppose that a viewer in another frame A is displaced relative to the current frame
+by a transformation $g_{xy}$: $\mathbf{Y}(t) = g_{xy} \mathbf{X}(t)$.
+Then the velocity in this new frame is given by:
+\[\mathbf{\dot{Y}}(t)
+	= g_{xy} \mathbf{\dot{X}}(t)
+	= g_{xy} \widehat{V}(t) \mathbf{X}(t)
+	= g_{xy} \widehat{V} \inv{g_{xy}} \mathbf{Y}(t)\]
+
+This shows that the relative velocity of points observed from camera frame A
+is represented by the twist
+\[\widehat{V}_y = g_{xy} \widehat{V} \inv{g_{xy}}
+	\equiv \text{ad}_{g_{xy}}(\widehat{V})\]
+
+where we have introduced the \textbf{adjoint map on $se(3)$}:
+\[\text{ad}_g : se(3) \rightarrow se(3);
+	\widehat{\xi} \mapsto g \widehat{\xi} \inv{g}\]
+
+
+\subsection{Summary of Lie Transformations}%
+\label{sub:summary_of_lie_transformations}
+
+
+\begin{table}[ht]
+\small
+\begin{tabular}{ccc}
+& Rotation $SO(3)$ & Rigid-body $SE(3)$ \\ \midrule
+	\makecell{Matrix \\ repres.}
+	& \makecell{$R \in GL(3)$ \\ $\tr{R}R = I$ \\ $\det(R) = 1$}
+		% & $g = \inmatrix{R & T \\ 0 & 1}$
+		& $g = \begin{pmatrix}R & T \\ 0 & 1\end{pmatrix}$
+		\\
+	\makecell{3-D \\ coordinates}
+		& $\mathbf{X} = R \mathbf{X}_0$
+		& $\mathbf{X} = R \mathbf{X}_0 + T$
+		\\
+	Inverse
+		& $\inv{R} = \tr{R}$
+		& $\inv{g} = \inmatrix{\tr{R} & -\tr{R}T \\ 0 & 1}$
+		\\
+	\makecell{Exp \\ repres.}
+		& $R = \exp{\widehat{w}}$
+		& $g = \exp{\widehat{\xi}}$
+		\\
+	\makecell{Velocity}
+		& $\mathbf{\dot{X}} = \widehat{w} \mathbf{X}$
+		& $\mathbf{\dot{X}} = \widehat{w} \mathbf{X} + v$
+		\\
+	\makecell{Adjoint map}
+		& $\widehat{w} \mapsto R \widehat{w} \tr{R}$
+		& $\widehat{\xi} \mapsto g \widehat{\xi} \inv{g}$
+		\\
+\end{tabular}
+\caption{Summary of Lie Transformations}%
+\label{tab:summary_lie_transformations}
+\end{table}
+
+
+
+\subsection{Euler Angles}%
 \label{sub:euler_angles}
 
 
+\textbf{Euler angles} are local coordinates i.e.\ a parameterization
+that is only correct for a portion of $SO(3)$.\\
+
+Given a basis $(\widehat{w}_1, \widehat{w}_2, \widehat{w}_3)$
+of the Lie algebra $so(3)$, we can define a mapping from $\R^3$
+to the Lie group $SO(3)$ by:
+\[ \alpha :\ (\alpha_1, \alpha_2, \alpha_3) \quad \mapsto \quad
+	\exp( \alpha_1 \widehat{w}_1 + \alpha_2 \widehat{w}_2 + \alpha_3 \widehat{w}_3)
+\]
+The coordinates $(\alpha_1, \alpha_2, \alpha_3)$ are called
+\textbf{Lie-Cartan coordinates of the first kind} relative to the above basis.
+The \textbf{Lie-Cartan coordinates of the second kind} are defined as:
+\[ \beta : (\beta_1, \beta_2, \beta_3) \mapsto
+	\exp(\beta_1 \widehat{w}_1) \exp(\beta_2 \widehat{w}_2) \exp(\beta_3 \widehat{w}_3)
+\]
+\textbf{Euler angles} are just a specific case of Lie-Cartan coordinates
+of the second kind with a basis representing rotation around
+the z-, y-, x-axis
+\[ w_1 = \tr{(0,0,1)}, w_2 = \tr{(0,1,0)}, w_3 = \tr{(1,0,0)} \]
