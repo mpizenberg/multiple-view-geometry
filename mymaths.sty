@@ -1,6 +1,7 @@
 \ProvidesPackage{mymaths}
 
 \usepackage{amsmath}
+\usepackage{amsthm}
 \usepackage{amsfonts}
 \usepackage{mathtools}
 \usepackage{bm} % bold maths
@@ -24,3 +25,6 @@
 
 % requires mathtools
 \DeclarePairedDelimiterX{\inner}[2]{\langle}{\rangle}{#1, #2} % Inner product
+
+% Few theorem-like environments
+\newtheorem{theorem}{Theorem}
