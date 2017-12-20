@@ -19,9 +19,34 @@
 \newcommand{\inv}[1]{#1^{-1}} % Inverse
 \newcommand{\pinv}[1]{#1^{\dagger}} % Pseudo Inverse
 \newcommand{\tr}[1]{#1^{\top}} % Transpose
-\newcommand{\inmatrix}[1]{\left(\begin{smallmatrix} #1 \end{smallmatrix} \right)} % Inline small matrix
-\newcommand{\hatmat}[3]{\begin{pmatrix}0 & -#3 & #2 \\ #3 & 0 & -#1 \\ -#2 & #1 & 0\end{pmatrix}} % hat operator skew-symmetric matrix
 \newcommand{\Set}[2]{\{\, #1 \mid{} #2 \,\}}
+
+% MATRICES #################################################
+
+% Inline small matrix
+\newcommand{\inmatrix}[1]{%
+	\left(\begin{smallmatrix} #1 \end{smallmatrix} \right)
+}
+
+% Hat operator skew-symmetric matrix
+\newcommand{\hatmat}[3]{%
+	\begin{pmatrix}
+		  0   & -{#3} &  {#2} \\
+		 {#3} &   0   & -{#1} \\
+		-{#2} &  {#1} &   0
+	\end{pmatrix}
+}
+
+% Diagonal matrix where you specify top left and bottom right elements
+\newcommand{\diagtwo}[2]{%
+	\begin{pmatrix}
+		{#1}   & \ldots & 0      \\
+		\vdots & \ddots & \vdots \\
+		0      & \ldots & {#2}
+	\end{pmatrix}
+}
+
+% MISC #####################################################
 
 % requires mathtools
 \DeclarePairedDelimiterX{\inner}[2]{\langle}{\rangle}{#1, #2} % Inner product
