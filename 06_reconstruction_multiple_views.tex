@@ -282,9 +282,6 @@ since the null space of $W_l$ contains the two vectors $\bm{X}_0$ and $\bm{V}$.
 \label{sub:geometric_interpretation}
 
 
-\subsubsection*{Rank Constraints: Geometric Interpretation}%
-\label{ssub:rank_constraints_geometric_interpretation}
-
 In the case of a \textbf{point} $\bm{X}$, we had the equation
 \[
 	W_p \bm{X} = 0, \quad \text{with} \quad
@@ -317,8 +314,241 @@ or more images of a line, then the above constraint really becomes meaningful.
 \label{sub:the_multiple_view_matrix}
 
 
+In the following, the rank constraints will be rewritten in a more compact
+and transparent manner. Let us assume we have $m$ images, the first of which
+is in world coordinates. Then we have projection matrices of the form
+\[
+	\Pi_1 = [R_1,T_1] = [I,0], \ldots, \Pi_m = [R_m, T_m] \ \in \RR{3}{4}
+\]
+which model the projection of a point $\bm{X}$ into the individual images.\\
+
+In general for uncalibrated cameras (i.e.\ $K_i \neq I$), $R_i$ will not be
+an orthogonal rotation matrix but rather an arbitrary invertible matrix.
+Again, we define the matrix $W_p$ as follows:
+\[
+	W_p \equiv \I^{\bot} \Pi = \begin{pmatrix}
+		\widehat{\bm{x}_1} \Pi_1 \\ \vdots \\ \widehat{\bm{x}_m} \Pi_m
+	\end{pmatrix}
+	\in \RR{3m}{4}
+\]
+The rank of the matrix $W_p$ is not affected if we multiply by
+a full-rank matrix $D_p \in \RR{4}{5}$ as follows:
+\begin{align*}
+	W_p D_p
+		&= \begin{pmatrix}
+				\widehat{\bm{x}_1} \Pi_1 \\ \vdots \\ \widehat{\bm{x}_m} \Pi_m
+			\end{pmatrix}
+			\begin{pmatrix}
+				\widehat{\bm{x}_1} & \bm{x}_1 & 0 \\
+				0 & 0 & 1
+			\end{pmatrix} \\
+		&= \begin{pmatrix}
+				\widehat{\bm{x}_1} \widehat{\bm{x}_1} & 0 & 0 \\
+				\widehat{\bm{x}_2} R_2 \widehat{\bm{x}_1}
+					& \widehat{\bm{x}_2} R_2 \bm{x}_1
+					& \widehat{\bm{x}_2} T_2 \\
+				\vdots & \vdots & \vdots \\
+				\widehat{\bm{x}_m} R_m \widehat{\bm{x}_1}
+					& \widehat{\bm{x}_m} R_m \bm{x}_1
+					& \widehat{\bm{x}_m} T_m
+			\end{pmatrix}
+\end{align*}
+This means that $\text{rank}(W_p) \leq 3$ if and only if the submatrix
+\[
+	M_p \equiv \begin{pmatrix}
+		\widehat{\bm{x}_2} R_2 \bm{x}_1
+			& \widehat{\bm{x}_2} T_2 \\
+		\vdots & \vdots \\
+		\widehat{\bm{x}_m} R_m \bm{x}_1
+			& \widehat{\bm{x}_m} T_m
+	\end{pmatrix}
+	\in \RR{3(m-1)}{2}
+\]
+has $\text{rank}(M_p) \leq 1$.
+The matrix $M_p$ is called the \textbf{multiple-view matrix} associated
+with a point $p$. It involves both the image $\bm{x}_1$ in the first view
+and the coimages $\widehat{\bm{x}_i}$ in the remaining views.
+In summary, \textbf{for multiple images of a point $p$, the matrices}
+\textbf{$N_p$, $W_p$ and $M_p$ satisfy}:
+\[
+	\boxed{ \begin{array}{rl}
+		\text{rank}(M_p)
+		& = \text{rank}(W_p) - 2 \\
+		& = \text{rank}(N_p) - (m + 2) \\
+		& \leq 1
+	\end{array}}
+\]
+The constraint $\text{rank}(M_p) \leq 1$ implies that the two columns
+are linearly dependent. In fact we have
+$\lambda_1 \widehat{\bm{x}_i} R_i \bm{x}_1 + \widehat{\bm{x}_i} T_i = 0,
+i = 2, \ldots, m$ which yields
+\[
+	M_p \begin{pmatrix} \lambda_1 \\ 1 \end{pmatrix} = 0
+\]
+Therefore the coefficient capturing the linear dependence
+is simply the distance $\lambda_1$ of the point $p$ from the first camera center.
+In other words, the multiple-view matrix captures exactly the information
+about a point $p$ that is missing from a single image, but encoded in multiple images.
+
+
 \subsection{Relation to Epipolar Constraints}%
 \label{sub:relation_to_epipolar_constraints}
+
+
+For the multiple-view matrix
+\[
+	M_p \equiv \begin{pmatrix}
+		\widehat{\bm{x}_2} R_2 \bm{x}_1
+			& \widehat{\bm{x}_2} T_2 \\
+		\vdots & \vdots \\
+		\widehat{\bm{x}_m} R_m \bm{x}_1
+			& \widehat{\bm{x}_m} T_m
+	\end{pmatrix}
+	\in \RR{3(m-1)}{2}
+\]
+to have $\text{rank}(M_p) = 1$, it is necessary that the pair of vectors
+$\widehat{\bm{x}_i} T_i$ and $\widehat{bm{x}_i} R_i \bm{x}_1$ to be
+linearly dependent for all $i = 2, \ldots, m$.
+This gives the \textbf{epipolar constraints}
+\[
+	\tr{\bm{x}_i} \widehat{T_i} R_i \bm{x}_1 = 0
+\]
+between the first and the $i$-th image.
+This can be proved by the fact these vectors are proportional if and only if
+the planes spanned by $(\bm{x}_i, T_i)$ and $(\bm{x}_i, R_i \bm{x}_1)$ are the same,
+leading to their triple product being $0$, which is the epipolar constraint.\\
+
+We shall see that the multiview constraint provides more information
+than the pairwise epipolar constraints.
+
+
+\subsubsection*{Analysis of the Multiple-view Constraint}%
+\label{ssub:analysis_of_the_multiple_view_constraint}
+
+For any nonzero vectors $a_i, b_i \in \R^3, i = 1, \ldots, n$, the matrix
+\[
+	\begin{pmatrix}
+		a_1 & b_1 \\
+		\vdots & \vdots \\
+		a_n & b_n
+	\end{pmatrix}
+	\in \RR{3n}{2}
+\]
+is rank-deficient if and only if $a_i \tr{b_j} - b_i \tr{a_j} = 0$
+for all $i,j = 1, \ldots, n$ (not proved here).
+Applied to the rank constraint on $M_p$ we get
+\[
+	\widehat{\bm{x}_i} R_i \bm{x}_1 \tr{(\widehat{\bm{x}_j} T_j)} -
+	\widehat{\bm{x}_i} T_i \tr{(\widehat{\bm{x}_j} R_j \bm{x}_1)} = 0
+\]
+which gives the \textbf{trilinear constraint}
+\[
+	\widehat{\bm{x}_i}
+	(T_i \tr{\bm{x}_1} \tr{R_j} - R_i \bm{x}_1 \tr{T_j})
+	\widehat{\bm{x}_j} = 0
+\]
+This is a matrix equation giving $3 \times 3 = 9$ scalar
+trilinear equations, only four of which are linearly independent.\\
+
+Except for degeneracies, the \textbf{bilinear (epipolar) constraints}
+relating two views are already contained in the
+\textbf{trilinear constraints} obtained for the multiview scenario.\\
+
+Note that the \textbf{equivalence} between the bilinear and trilinear constraints
+on one hand and the condition that $\text{rank}(M_p) \leq 1$ on the other
+only holds if the vectors in $M_p$ are nonzero.
+In certain degenerate cases this is not fulfilled.
+
+
+\subsubsection*{Uniqueness of the Preimage}%
+\label{ssub:uniqueness_of_the_preimage}
+
+
+Given three vectors $\bm{x}_1, \bm{x}_2, \bm{x}_3 \in \R^3$
+and three camera frames with distinct optical centers,
+if the three images satisfy the \textbf{pairwise epipolar constraints}
+\[
+	\tr{\bm{x}_i} \widehat{T_{ij}} R_{ij} \bm{x}_j = 0,
+	\quad i,j = 1,2,3
+\]
+then a unique preimage is determined except if the tree lines
+associated to image points $\bm{x}_1, \bm{x}_2, \bm{x}_3$ are coplanar.
+Here $T_{ij}$ and $R_{ij}$ refer to the transition between frames $i$ and $j$.
+Similarly, if these vectors satisfy all \textbf{trilinear constraints}
+\[
+	\widehat{\bm{x}}_i
+	( T_{ji} \tr{\bm{x}_i} \tr{R_{ki}} - R_{ji} \bm{x}_i \tr{T_{ki}} )
+	\widehat{\bm{x}}_k = 0,
+	\quad i,j,k = 1,2,3
+\]
+Then a unique preimage is determined unless the three lines
+associated to image points $\bm{x}_1, \bm{x}_2, \bm{x}_3$ are colinear.
+(Not proved here).
+
+
+\subsubsection*{Degeneracies for the Bilinear Constraints}%
+\label{ssub:degeneracies_for_the_bilinear_constraints}
+
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\linewidth]{img/todo.png}
+	\caption{Degeneracies and trifocal plane. (video 11, minute 71)}%
+	\label{fig:degeneracies_trifocal_plane}
+\end{figure}
+
+In Figure~\ref{fig:degeneracies_trifocal_plane},
+the point $p$ lies in the plane spanned by
+the three optical centers which is also called the \textbf{trifocal plane}.
+In this case, all pairs of lines do intersect, yet it does not imply
+a unique 3D point $p$ (a unique preimage).
+In practice this degenerate case arises rather seldom.
+
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\linewidth]{img/todo.png}
+	\caption{Degeneracies of rectilinear motion. (video 11, minute 74)}%
+	\label{fig:degeneracies_rectilinear_motion}
+\end{figure}
+
+In Figure~\ref{fig:degeneracies_rectilinear_motion},
+the optical centers lie on a straight line (\textbf{rectilinear motion}).
+Again, all pairs of lines may intersect without there being a unique preimage $p$.
+This case is frequent in applications when the camera moves in a straight line
+(e.g.\ a car on a highway). Then the epipolar constraints will not
+allow a unique reconstruction.\\
+
+Fortunately, \textbf{the trilinear constraint assures a unique preimage}
+(unless $p$ is also on the same line with the optical centers).
+
+
+\subsubsection*{Uniqueness of the Preimage}%
+\label{ssub:uniqueness_of_the_preimage}
+
+Using the multiple-view matrix, we obtain a more general and simpler
+characterization regarding the uniqueness of the preimage.\\
+
+Given $m$ vectors representing the $m$ images of a point in $m$ views,
+they correspond to the same point in the 3D space if the rank of
+the multiview matrix $M_p$ relative to any of the camera frames is one.
+If the rank is zero, the point determined up to the line on which
+all the camera centers must lie. In summary we get:
+\[
+	\boxed{\begin{array}{rl}
+		\text{rank}(M_p) = 2\ \Rightarrow
+			& \text{no point correspondence} \\
+			& \text{\& empty preimage} \\
+		\text{rank}(M_p) = 1\ \Rightarrow
+			& \text{point correspondence} \\
+			& \text{\& unique preimage} \\
+		\text{rank}(M_p) = 0\ \Rightarrow
+			& \text{point correspondence} \\
+			& \text{\& not unique preimage}
+	\end{array}}
+\]
+With these constraints we could decide which features to match
+for establishing point correspondence over multiple frames.
 
 
 \subsection{Multiple-View Reconstruction Algorithms}%
