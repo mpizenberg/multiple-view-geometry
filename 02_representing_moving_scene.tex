@@ -91,7 +91,7 @@ can be represented by the \textbf{skew-symmetric matrix}
 
 In turn, every skew symmetric matrix $M = -\tr{M} \in \RR{3}{3}$
 can be identified with a vector $u \in \R^3$.
-The operator $\widehat{}$ defines an \textbf{isomorphism} between $\R³$
+The operator $\widehat{}$ defines an \textbf{isomorphism} between $\R^3$
 and the space $so(3)$ of the $3 \times 3$ skew-symmetric matrices.
 Its inverse is denoted by $\vee : so(3) \rightarrow \R^3$.
 
@@ -396,7 +396,7 @@ has the solution $g(t) = e^{\widehat{\xi}t} = \sum_{n=0}^{\infty}
 For $w = 0$, we have $e^{\widehat{\xi}} = \inmatrix{I & v \\ 0 & 1}$,
 while for $w \ne 0$ one can show:
 	\[\boxed{e^{\widehat{\xi}} = \begin{pmatrix}
-		e^{\widehat{w}} & \frac{(I-e^{\widehat{w}})\widehat{w}v + w\tr{w}v}{|w|}\\
+		e^{\widehat{w}} & \frac{(I-e^{\widehat{w}})\widehat{w}v + w\tr{w}v}{|w|^2}\\
 		0 & 1
 	\end{pmatrix}}\]
 
@@ -412,7 +412,7 @@ twist coordinates $\bm{\xi = (v,w) \in \R^6}$ such that $\bm{g=\exp(\widehat{\xi
 
 \underline{Proof sketch:} Given $g = (R,T)$, we merely need to solve the equation
 for the velocity vector $v \in \R^3$:
-	\[\frac{(I-e^{\widehat{w}})\widehat{w}v + w\tr{w}v}{|w|} = T\]
+	\[\frac{(I-e^{\widehat{w}})\widehat{w}v + w\tr{w}v}{|w|^2} = T\]
 
 
 Be aware that, just as in $SO(3)$, \textbf{this representation is not unique}.
